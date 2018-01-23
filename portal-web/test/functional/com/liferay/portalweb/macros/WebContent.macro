@@ -1081,7 +1081,7 @@
 
 		<execute macro="IFrame#selectDialogFrame" />
 
-		<execute macro="Button#clickSave" />
+		<execute macro="PortletEntry#save" />
 	</command>
 
 	<command name="editNullCP">
@@ -1122,7 +1122,9 @@
 	</command>
 
 	<command name="editPGViaAP">
-		<execute macro="AssetPublisherPortlet#gotoEditRelatedAssets" />
+		<execute macro="AssetPublisherPortlet#gotoEditWebContent">
+			<var name="assetTitle" value="${assetTitle}" />
+		</execute>
 
 		<execute macro="IFrame#selectDialogFrame" />
 
@@ -2071,7 +2073,7 @@
 	</command>
 
 	<command name="viewStructureViaAddMenuCP">
-		<execute function="Click" locator1="Button#PLUS" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute function="AssertTextEquals" locator1="MenuItem#ANY_MENU_ITEM" value1="${structureName}">
 			<var name="key_menuItem" value="${structureName}" />

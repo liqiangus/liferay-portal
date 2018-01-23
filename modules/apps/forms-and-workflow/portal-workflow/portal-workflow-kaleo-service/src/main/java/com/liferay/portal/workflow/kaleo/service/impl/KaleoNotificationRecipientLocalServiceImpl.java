@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.workflow.kaleo.definition.AddressRecipient;
+import com.liferay.portal.workflow.kaleo.definition.NotificationReceptionType;
 import com.liferay.portal.workflow.kaleo.definition.Recipient;
 import com.liferay.portal.workflow.kaleo.definition.RecipientType;
 import com.liferay.portal.workflow.kaleo.definition.RoleRecipient;
@@ -61,8 +62,12 @@ public class KaleoNotificationRecipientLocalServiceImpl
 		kaleoNotificationRecipient.setModifiedDate(now);
 		kaleoNotificationRecipient.setKaleoDefinitionId(kaleoDefinitionId);
 		kaleoNotificationRecipient.setKaleoNotificationId(kaleoNotificationId);
+
+		NotificationReceptionType notificationReceptionType =
+			recipient.getNotificationReceptionType();
+
 		kaleoNotificationRecipient.setNotificationReceptionType(
-			recipient.getNotificationReceptionType().getValue());
+			notificationReceptionType.getValue());
 
 		setRecipient(kaleoNotificationRecipient, recipient, serviceContext);
 

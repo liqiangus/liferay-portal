@@ -622,6 +622,18 @@ AUI.add(
 						Scheduler.superclass.bindUI.apply(this, arguments);
 					},
 
+					destructor: function() {
+						var instance = this;
+
+						instance.get('views').forEach(
+							function(item) {
+								item.destroy();
+							}
+						);
+
+						Scheduler.superclass.destructor.apply(instance, arguments);
+					},
+
 					getEventsByCalendarBookingId: function(calendarBookingId) {
 						var instance = this;
 

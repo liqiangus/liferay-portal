@@ -35,6 +35,8 @@ import com.liferay.portal.workflow.kaleo.model.KaleoDefinition;
 import com.liferay.portal.workflow.kaleo.model.KaleoInstance;
 import com.liferay.portal.workflow.kaleo.model.KaleoInstanceToken;
 import com.liferay.portal.workflow.kaleo.model.KaleoLog;
+import com.liferay.portal.workflow.kaleo.model.KaleoNode;
+import com.liferay.portal.workflow.kaleo.model.KaleoTask;
 import com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken;
 import com.liferay.portal.workflow.kaleo.runtime.integration.impl.internal.util.LazyWorkflowTaskAssigneeList;
 import com.liferay.portal.workflow.kaleo.runtime.integration.impl.internal.util.WorkflowTaskAssigneesSupplier;
@@ -123,8 +125,10 @@ public class KaleoWorkflowModelConverterImpl
 
 		defaultWorkflowInstance.setEndDate(kaleoInstance.getCompletionDate());
 		defaultWorkflowInstance.setStartDate(kaleoInstance.getCreateDate());
-		defaultWorkflowInstance.setState(
-			kaleoInstanceToken.getCurrentKaleoNode().getName());
+
+		KaleoNode currentKaleoNode = kaleoInstanceToken.getCurrentKaleoNode();
+
+		defaultWorkflowInstance.setState(currentKaleoNode.getName());
 
 		if (workflowContext != null) {
 			defaultWorkflowInstance.setWorkflowContext(workflowContext);
@@ -204,11 +208,13 @@ public class KaleoWorkflowModelConverterImpl
 			kaleoTaskInstanceToken.getCreateDate());
 		defaultWorkflowTask.setCompletionDate(
 			kaleoTaskInstanceToken.getCompletionDate());
-		defaultWorkflowTask.setDescription(
-			kaleoTaskInstanceToken.getKaleoTask().getDescription());
+
+		KaleoTask kaleoTask = kaleoTaskInstanceToken.getKaleoTask();
+
+		defaultWorkflowTask.setDescription(kaleoTask.getDescription());
+
 		defaultWorkflowTask.setDueDate(kaleoTaskInstanceToken.getDueDate());
-		defaultWorkflowTask.setName(
-			kaleoTaskInstanceToken.getKaleoTask().getName());
+		defaultWorkflowTask.setName(kaleoTask.getName());
 
 		if (workflowContext != null) {
 			defaultWorkflowTask.setOptionalAttributes(workflowContext);

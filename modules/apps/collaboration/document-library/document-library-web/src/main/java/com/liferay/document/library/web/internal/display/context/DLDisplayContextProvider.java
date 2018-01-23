@@ -89,10 +89,9 @@ public class DLDisplayContextProvider {
 		return dlEditFileEntryDisplayContext;
 	}
 
-	public DLViewFileVersionDisplayContext
-		getDLViewFileVersionDisplayContext(
-			HttpServletRequest request, HttpServletResponse response,
-			FileShortcut fileShortcut) {
+	public DLViewFileVersionDisplayContext getDLViewFileVersionDisplayContext(
+		HttpServletRequest request, HttpServletResponse response,
+		FileShortcut fileShortcut) {
 
 		try {
 			DLViewFileVersionDisplayContext dlViewFileVersionDisplayContext =
@@ -120,10 +119,9 @@ public class DLDisplayContextProvider {
 		}
 	}
 
-	public DLViewFileVersionDisplayContext
-		getDLViewFileVersionDisplayContext(
-			HttpServletRequest request, HttpServletResponse response,
-			FileVersion fileVersion) {
+	public DLViewFileVersionDisplayContext getDLViewFileVersionDisplayContext(
+		HttpServletRequest request, HttpServletResponse response,
+		FileVersion fileVersion) {
 
 		DLViewFileVersionDisplayContext dlViewFileVersionDisplayContext =
 			new DefaultDLViewFileVersionDisplayContext(

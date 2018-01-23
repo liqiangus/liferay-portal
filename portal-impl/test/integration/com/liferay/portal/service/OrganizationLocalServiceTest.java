@@ -66,7 +66,8 @@ public class OrganizationLocalServiceTest {
 
 		List<Organization> organizations = user.getOrganizations(true);
 
-		Assert.assertTrue(organizations.contains(organization));
+		Assert.assertTrue(
+			organizations.toString(), organizations.contains(organization));
 
 		Assert.assertFalse(
 			OrganizationLocalServiceUtil.hasUserOrganization(

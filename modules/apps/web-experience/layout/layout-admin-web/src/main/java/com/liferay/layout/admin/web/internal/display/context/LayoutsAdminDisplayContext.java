@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.util.LayoutDescription;
 import com.liferay.portal.util.LayoutListUtil;
 import com.liferay.portal.util.PropsValues;
@@ -56,8 +57,7 @@ public class LayoutsAdminDisplayContext extends BaseLayoutDisplayContext {
 			PortalUtil.getHttpServletRequest(liferayPortletRequest));
 
 		this.liferayPortletRequest.setAttribute(
-			com.liferay.portal.kernel.util.WebKeys.LAYOUT_DESCRIPTIONS,
-			getLayoutDescriptions());
+			WebKeys.LAYOUT_DESCRIPTIONS, getLayoutDescriptions());
 	}
 
 	@Override

@@ -48,7 +48,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -162,7 +162,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -275,7 +275,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -359,7 +359,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#gotoAddField">
 			<var name="fieldType" value="Text Field" />
@@ -390,7 +390,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -506,7 +506,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -990,19 +990,22 @@
 		</execute>
 
 		<execute macro="FormFields#viewCheckboxLabel">
+			<var name="fieldLabel" value="Explain Module Resolutions" />
+			<var name="fieldName" value="explainResolutions" />
+		</execute>
+
+		<execute macro="FormFields#viewCheckboxLabel">
 			<var name="fieldLabel" value="Expose Global" />
 			<var name="fieldName" value="exposeGlobal" />
 		</execute>
 
-		<for list="applyVersioning,exposeGlobal" param="fieldName">
-			<execute macro="FormFields#viewCheckboxChecked">
-				<var name="fieldName" value="${fieldName}" />
-			</execute>
+		<execute macro="FormFields#viewCheckboxChecked">
+			<var name="fieldName" value="applyVersioning" />
+		</execute>
 
-			<execute macro="FormFields#disableCheckbox">
-				<var name="fieldName" value="${fieldName}" />
-			</execute>
-		</for>
+		<execute macro="FormFields#disableCheckbox">
+			<var name="fieldName" value="applyVersioning" />
+		</execute>
 
 		<execute macro="SystemSettings#saveConfiguration" />
 
@@ -1010,7 +1013,7 @@
 			<var name="configurationName" value="JavaScript Loader" />
 		</execute>
 
-		<for list="applyVersioning,exposeGlobal" param="fieldName">
+		<for list="applyVersioning,explainResolutions,exposeGlobal" param="fieldName">
 			<execute macro="FormFields#viewCheckboxNotChecked">
 				<var name="fieldName" value="${fieldName}" />
 			</execute>
@@ -1103,7 +1106,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName">
 			<var name="formName" value="Text" />
@@ -1131,7 +1134,7 @@
 
 		<execute macro="Navigator#gotoBack" />
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName">
 			<var name="formName" value="Checkbox" />
@@ -1211,7 +1214,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -1318,7 +1321,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName">
 			<var name="formName" value="Test Form" />
@@ -1433,7 +1436,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -1585,7 +1588,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -1683,7 +1686,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -1766,7 +1769,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -2231,7 +2234,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -2513,7 +2516,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -2615,7 +2618,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -2818,7 +2821,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -2906,7 +2909,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -2988,7 +2991,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -3075,7 +3078,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -3169,7 +3172,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -3272,7 +3275,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -3366,7 +3369,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -3454,7 +3457,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -3544,7 +3547,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -3632,7 +3635,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -3803,7 +3806,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -3912,7 +3915,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -3981,7 +3984,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 

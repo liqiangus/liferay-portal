@@ -170,6 +170,21 @@ public abstract class BaseBuild implements Build {
 	}
 
 	@Override
+	public long getAverageDelayTime() {
+		if (getDownstreamBuildCount(null) == 0) {
+			return 0;
+		}
+
+		long totalDelayTime = 0;
+
+		for (Build downstreamBuild : getDownstreamBuilds(null)) {
+			totalDelayTime += downstreamBuild.getDelayTime();
+		}
+
+		return totalDelayTime / getDownstreamBuildCount(null);
+	}
+
+	@Override
 	public List<String> getBadBuildURLs() {
 		List<String> badBuildURLs = new ArrayList<>();
 
@@ -351,6 +366,11 @@ public abstract class BaseBuild implements Build {
 	@Override
 	public String getDatabase() {
 		return null;
+	}
+
+	@Override
+	public Long getDelayTime() {
+		return getStartTime() - getInvokedTime();
 	}
 
 	@Override
@@ -557,6 +577,17 @@ public abstract class BaseBuild implements Build {
 	}
 
 	@Override
+	public Long getInvokedTime() {
+		if (invokedTime != null) {
+			return invokedTime;
+		}
+
+		invokedTime = getStartTime();
+
+		return invokedTime;
+	}
+
+	@Override
 	public String getJDK() {
 		return null;
 	}
@@ -684,6 +715,22 @@ public abstract class BaseBuild implements Build {
 	}
 
 	@Override
+	public Build getLongestDelayedDownstreamBuild() {
+		Build longestDelayedDownstreamBuild = null;
+
+		for (Build downstreamBuild : getDownstreamBuilds(null)) {
+			if ((longestDelayedDownstreamBuild == null) ||
+				(downstreamBuild.getDelayTime() >
+					longestDelayedDownstreamBuild.getDelayTime())) {
+
+				longestDelayedDownstreamBuild = downstreamBuild;
+			}
+		}
+
+		return longestDelayedDownstreamBuild;
+	}
+
+	@Override
 	public Build getLongestRunningDownstreamBuild() {
 		Build longestRunningDownstreamBuild = null;
 
@@ -764,6 +811,10 @@ public abstract class BaseBuild implements Build {
 
 	@Override
 	public Long getStartTime() {
+		if (startTime != null) {
+			return startTime;
+		}
+
 		JSONObject buildJSONObject = getBuildJSONObject("timestamp");
 
 		if (buildJSONObject == null) {
@@ -772,11 +823,11 @@ public abstract class BaseBuild implements Build {
 
 		long timestamp = buildJSONObject.getLong("timestamp");
 
-		if (timestamp == 0) {
-			return null;
+		if (timestamp != 0) {
+			startTime = timestamp;
 		}
 
-		return timestamp;
+		return startTime;
 	}
 
 	@Override
@@ -1028,8 +1079,8 @@ public abstract class BaseBuild implements Build {
 						message, "jenkins", "Build Reinvoked",
 						reinvokeRule.notificationRecipients);
 				}
-				catch (
-					InterruptedException | IOException | TimeoutException e) {
+				catch (InterruptedException | IOException |
+					   TimeoutException e) {
 
 					throw new RuntimeException(
 						"Unable to send reinvoke notification", e);
@@ -1694,11 +1745,28 @@ public abstract class BaseBuild implements Build {
 			Dom4JUtil.getNewElement(
 				cellElementTagName, null,
 				Dom4JUtil.getNewAnchorElement(
-					getBuildURL() + "testReport", "Test Report")),
-			Dom4JUtil.getNewElement(
-				cellElementTagName, null,
-				JenkinsResultsParserUtil.toDateString(
-					new Date(getStartTime()), getJenkinsReportTimeZoneName())),
+					getBuildURL() + "testReport", "Test Report")));
+
+		getStartTime();
+
+		if (startTime == null) {
+			Dom4JUtil.addToElement(
+				buildInfoElement,
+				Dom4JUtil.getNewElement(
+					cellElementTagName, null, "",
+					getJenkinsReportTimeZoneName()));
+		}
+		else {
+			Dom4JUtil.addToElement(
+				buildInfoElement,
+				Dom4JUtil.getNewElement(
+					cellElementTagName, null,
+					toJenkinsReportDateString(
+						new Date(startTime), getJenkinsReportTimeZoneName())));
+		}
+
+		Dom4JUtil.addToElement(
+			buildInfoElement,
 			Dom4JUtil.getNewElement(
 				cellElementTagName, null,
 				JenkinsResultsParserUtil.toDurationString(getDuration())));
@@ -1758,7 +1826,7 @@ public abstract class BaseBuild implements Build {
 	}
 
 	protected String getJenkinsReportTimeZoneName() {
-		return _jenkinsReportTimeZoneName;
+		return _JENKINS_REPORT_TIME_ZONE_NAME;
 	}
 
 	protected Set<String> getJobParameterNames() {
@@ -2220,6 +2288,21 @@ public abstract class BaseBuild implements Build {
 		}
 	}
 
+	protected String toJenkinsReportDateString(Date date, String timeZoneName) {
+		Properties buildProperties = null;
+
+		try {
+			buildProperties = JenkinsResultsParserUtil.getBuildProperties();
+		}
+		catch (IOException ioe) {
+			throw new RuntimeException("Unable to get build properties", ioe);
+		}
+
+		return JenkinsResultsParserUtil.toDateString(
+			date, buildProperties.getProperty("jenkins.report.date.format"),
+			timeZoneName);
+	}
+
 	protected void writeArchiveFile(String content, String path)
 		throws IOException {
 
@@ -2265,13 +2348,14 @@ public abstract class BaseBuild implements Build {
 	protected int consoleReadCursor;
 	protected List<Build> downstreamBuilds = new ArrayList<>();
 	protected boolean fromArchive;
+	protected Long invokedTime;
 	protected String jobName;
 	protected List<ReinvokeRule> reinvokeRules =
 		ReinvokeRule.getReinvokeRules();
 	protected String repositoryName;
 	protected List<SlaveOfflineRule> slaveOfflineRules =
 		SlaveOfflineRule.getSlaveOfflineRules();
-	protected long startTime;
+	protected Long startTime;
 	protected long statusModifiedTime;
 	protected Element upstreamJobFailureMessageElement;
 
@@ -2300,9 +2384,14 @@ public abstract class BaseBuild implements Build {
 		}
 
 		protected void addTimelineData(BaseBuild build) {
-			int endIndex = _getIndex(
-				build.getStartTime() + build.getDuration());
-			int startIndex = _getIndex(build.getStartTime());
+			Long buildStartTime = build.getStartTime();
+
+			if (buildStartTime == null) {
+				return;
+			}
+
+			int endIndex = _getIndex(buildStartTime + build.getDuration());
+			int startIndex = _getIndex(buildStartTime);
 
 			_timeline[startIndex]._invocationsCount++;
 
@@ -2398,7 +2487,7 @@ public abstract class BaseBuild implements Build {
 	private static final String[] _HIGH_PRIORITY_CONTENT_FLAGS =
 		{"compileJSP", "SourceFormatter.format", "Unable to compile JSPs"};
 
-	private static final String _jenkinsReportTimeZoneName;
+	private static final String _JENKINS_REPORT_TIME_ZONE_NAME;
 
 	static {
 		Properties properties = null;
@@ -2410,7 +2499,7 @@ public abstract class BaseBuild implements Build {
 			throw new RuntimeException("Unable to get build properties", ioe);
 		}
 
-		_jenkinsReportTimeZoneName = properties.getProperty(
+		_JENKINS_REPORT_TIME_ZONE_NAME = properties.getProperty(
 			"jenkins.report.time.zone");
 	};
 

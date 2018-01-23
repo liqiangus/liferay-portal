@@ -14,8 +14,8 @@
 
 package com.liferay.blogs.item.selector.web.internal;
 
+import com.liferay.blogs.item.selector.constants.BlogsItemSelectorViewConstants;
 import com.liferay.blogs.item.selector.criterion.BlogsItemSelectorCriterion;
-import com.liferay.blogs.item.selector.web.constants.BlogsItemSelectorViewConstants;
 import com.liferay.blogs.item.selector.web.internal.display.context.BlogsItemSelectorViewDisplayContext;
 import com.liferay.item.selector.ItemSelectorReturnType;
 import com.liferay.item.selector.ItemSelectorReturnTypeResolverHandler;

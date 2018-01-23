@@ -51,7 +51,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -180,7 +180,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 
@@ -308,7 +308,7 @@
 			<var name="portlet" value="Forms" />
 		</execute>
 
-		<execute macro="FormsAdminNavigator#gotoAddForm" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="Form#editName" />
 

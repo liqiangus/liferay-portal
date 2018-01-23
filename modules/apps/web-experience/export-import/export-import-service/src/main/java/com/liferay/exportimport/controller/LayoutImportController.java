@@ -1336,9 +1336,25 @@ public class LayoutImportController implements ImportController {
 			}
 		}
 		else {
+			BiPredicate<Version, Version> majorVersionCompatBiPredicate =
+				(currentVersion, importVersion) -> {
+					if (Objects.equals(
+							currentVersion.getMajor(),
+							_VERSION_400.getMajor()) &&
+						Objects.equals(
+							importVersion.getMajor(),
+							_VERSION_300.getMajor())) {
+
+						return true;
+					}
+
+					return false;
+				};
+
 			BiPredicate<Version, Version> majorVersionBiPredicate =
-				(currentVersion, importVersion) -> Objects.equals(
-					currentVersion.getMajor(), importVersion.getMajor());
+				majorVersionCompatBiPredicate.or(
+					(currentVersion, importVersion) -> Objects.equals(
+						currentVersion.getMajor(), importVersion.getMajor()));
 
 			BiPredicate<Version, Version> minorVersionBiPredicate =
 				(currentVersion, importVersion) -> {
@@ -1604,6 +1620,10 @@ public class LayoutImportController implements ImportController {
 			throw new LayoutPrototypeException(missingLayoutPrototypes);
 		}
 	}
+
+	private static final Version _VERSION_300 = Version.getInstance("3.0.0");
+
+	private static final Version _VERSION_400 = Version.getInstance("4.0.0");
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		LayoutImportController.class);

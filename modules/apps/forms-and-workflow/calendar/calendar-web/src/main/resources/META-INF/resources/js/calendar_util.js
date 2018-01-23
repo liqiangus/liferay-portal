@@ -404,10 +404,37 @@ AUI.add(
 			getCurrentTime: function(callback) {
 				var instance = this;
 
+				var lastCurrentTime = instance.lastCurrentTime;
+
+				if (lastCurrentTime) {
+					var lastBrowserTime = instance.lastBrowserTime;
+
+					var browserTime = new Date();
+
+					var timeDiff = Math.abs(browserTime.getTime() - lastBrowserTime.getTime());
+
+					var currentTime = lastCurrentTime.getTime() + timeDiff;
+
+					lastCurrentTime.setTime(currentTime);
+
+					instance.lastCurrentTime = lastCurrentTime;
+
+					instance.lastBrowserTime = browserTime;
+
+					callback(instance.lastCurrentTime);
+
+					return;
+				}
+
 				instance.invokeResourceURL(
 					{
 						callback: function(dateObj) {
-							callback(instance.getDateFromObject(dateObj));
+							instance.lastCurrentTime = instance.getDateFromObject(dateObj);
+
+							instance.lastBrowserTime = new Date();
+
+							callback(instance.lastCurrentTime);
+
 						},
 						resourceId: 'currentTime'
 					}
@@ -547,6 +574,7 @@ AUI.add(
 
 				var url = Liferay.PortletURL.createResourceURL();
 
+				url.setDoAsUserId(Liferay.ThemeDisplay.getDoAsUserIdEncoded());
 				url.setParameters(params.queryParameters);
 				url.setPortletId('com_liferay_calendar_web_portlet_CalendarPortlet');
 				url.setResourceId(params.resourceId);

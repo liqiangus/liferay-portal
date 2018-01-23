@@ -87,7 +87,7 @@ public class JenkinsResultsParserUtil {
 
 	public static boolean debug;
 
-	public static String combine(String...strings) {
+	public static String combine(String... strings) {
 		if ((strings == null) || (strings.length == 0)) {
 			return "";
 		}
@@ -120,6 +120,12 @@ public class JenkinsResultsParserUtil {
 				}
 
 				return;
+			}
+
+			File parentFile = target.getParentFile();
+
+			if ((parentFile != null) && !parentFile.exists()) {
+				parentFile.mkdirs();
 			}
 
 			try (FileInputStream fileInputStream =
@@ -472,6 +478,7 @@ public class JenkinsResultsParserUtil {
 	}
 
 	public static String fixURL(String url) {
+		url = url.replace("#", "%23");
 		url = url.replace("(", "%28");
 		url = url.replace(")", "%29");
 		url = url.replace("[", "%5B");
@@ -785,6 +792,18 @@ public class JenkinsResultsParserUtil {
 		return plural;
 	}
 
+	public static String getPathRelativeTo(File file, File relativeToFile) {
+		try {
+			String filePath = file.getCanonicalPath();
+
+			return filePath.replace(
+				relativeToFile.getCanonicalPath() + "/", "");
+		}
+		catch (IOException ioe) {
+			throw new RuntimeException("Unable to get relative path", ioe);
+		}
+	}
+
 	public static List<String> getRandomList(List<String> list, int size) {
 		if (list.size() < size) {
 			throw new IllegalStateException(
@@ -1015,7 +1034,13 @@ public class JenkinsResultsParserUtil {
 	}
 
 	public static String toDateString(Date date, String timeZoneName) {
-		SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm:ss a z");
+		return toDateString(date, "MMM dd, yyyy h:mm:ss a z", timeZoneName);
+	}
+
+	public static String toDateString(
+		Date date, String format, String timeZoneName) {
+
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
 
 		if (timeZoneName != null) {
 			sdf.setTimeZone(TimeZone.getTimeZone(timeZoneName));

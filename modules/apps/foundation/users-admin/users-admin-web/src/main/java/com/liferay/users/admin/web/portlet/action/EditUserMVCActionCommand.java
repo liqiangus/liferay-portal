@@ -20,6 +20,7 @@ import com.liferay.announcements.kernel.model.AnnouncementsEntryConstants;
 import com.liferay.announcements.kernel.service.AnnouncementsDeliveryLocalService;
 import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.petra.string.CharPool;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.bean.BeanParamUtil;
 import com.liferay.portal.kernel.exception.AddressCityException;
 import com.liferay.portal.kernel.exception.AddressStreetException;
@@ -84,7 +85,6 @@ import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.URLCodec;
 import com.liferay.portal.kernel.util.Validator;
@@ -479,8 +479,6 @@ public class EditUserMVCActionCommand extends BaseMVCActionCommand {
 				actionRequest, "announcementsType" + type + "Email");
 			boolean sms = ParamUtil.getBoolean(
 				actionRequest, "announcementsType" + type + "Sms");
-			boolean website = ParamUtil.getBoolean(
-				actionRequest, "announcementsType" + type + "Website");
 
 			AnnouncementsDelivery announcementsDelivery =
 				new AnnouncementsDeliveryImpl();
@@ -488,7 +486,6 @@ public class EditUserMVCActionCommand extends BaseMVCActionCommand {
 			announcementsDelivery.setType(type);
 			announcementsDelivery.setEmail(email);
 			announcementsDelivery.setSms(sms);
-			announcementsDelivery.setWebsite(website);
 
 			announcementsDeliveries.add(announcementsDelivery);
 		}

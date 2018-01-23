@@ -52,3 +52,8 @@ a37e251ae4105c595b725d57054733387b1bec67^..df3bf4dd7e447fd27b2d0046a5090165d271d
 # Bundle Version 1.0.11
 #
 df3bf4dd7e447fd27b2d0046a5090165d271d08e^..8a8c24ef9a1aa70addaa0deaab31f641ebca41ac=LPS-75010
+
+#
+# Bundle Version 1.0.12
+#
+8a8c24ef9a1aa70addaa0deaab31f641ebca41ac^..515f3c1fc72fb226a18181bebc89f4262be57fb2=LPS-74544 LPS-75010

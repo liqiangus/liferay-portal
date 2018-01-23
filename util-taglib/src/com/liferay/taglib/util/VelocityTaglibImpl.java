@@ -28,12 +28,14 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.taglib.TagSupport;
 import com.liferay.taglib.portlet.ActionURLTag;
+import com.liferay.taglib.portletext.IconBackTag;
 import com.liferay.taglib.portletext.IconOptionsTag;
 import com.liferay.taglib.portletext.IconPortletTag;
 import com.liferay.taglib.portletext.RuntimeTag;
 import com.liferay.taglib.security.DoAsURLTag;
 import com.liferay.taglib.security.PermissionsURLTag;
 import com.liferay.taglib.servlet.PipingPageContext;
+import com.liferay.taglib.theme.LayoutIconTag;
 import com.liferay.taglib.theme.MetaTagsTag;
 import com.liferay.taglib.theme.WrapPortletTag;
 import com.liferay.taglib.ui.AssetCategoriesSummaryTag;
@@ -41,6 +43,7 @@ import com.liferay.taglib.ui.AssetLinksTag;
 import com.liferay.taglib.ui.AssetTagsSummaryTag;
 import com.liferay.taglib.ui.BreadcrumbTag;
 import com.liferay.taglib.ui.DiscussionTag;
+import com.liferay.taglib.ui.IconHelpTag;
 import com.liferay.taglib.ui.IconTag;
 import com.liferay.taglib.ui.JournalArticleTag;
 import com.liferay.taglib.ui.JournalContentSearchTag;
@@ -429,8 +432,7 @@ public class VelocityTaglibImpl implements VelocityTaglib {
 
 	@Override
 	public void iconHelp(String message) throws Exception {
-		com.liferay.taglib.ui.IconHelpTag iconHelpTag =
-			new com.liferay.taglib.ui.IconHelpTag();
+		IconHelpTag iconHelpTag = new IconHelpTag();
 
 		setUp(iconHelpTag);
 
@@ -543,7 +545,7 @@ public class VelocityTaglibImpl implements VelocityTaglib {
 
 	@Override
 	public void layoutIcon(Layout layout) throws Exception {
-		com.liferay.taglib.theme.LayoutIconTag.doTag(layout, _pageContext);
+		LayoutIconTag.doTag(layout, _pageContext);
 	}
 
 	@Override
@@ -589,8 +591,7 @@ public class VelocityTaglibImpl implements VelocityTaglib {
 	@Deprecated
 	@Override
 	public void portletIconBack() throws Exception {
-		com.liferay.taglib.portletext.IconBackTag iconBackTag =
-			new com.liferay.taglib.portletext.IconBackTag();
+		IconBackTag iconBackTag = new IconBackTag();
 
 		setUp(iconBackTag);
 

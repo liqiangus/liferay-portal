@@ -3,15 +3,13 @@
 	<var name="ddlListName" value="List Name" />
 
 	<command name="gotoAddDisplayTemplate">
-		<execute function="Click" locator1="Button#PLUS" />
-
-		<execute function="AssertClick" locator1="MenuItem#ANY_MENU_ITEM" value1="Add Display Template">
-			<var name="key_menuItem" value="Add Display Template" />
+		<execute macro="LexiconEntry#gotoAddMenuItem">
+			<var name="menuItem" value="Add Display Template" />
 		</execute>
 	</command>
 
 	<command name="gotoAddListRecord">
-		<execute function="Click" locator1="Button#PLUS" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="SiteAdmin#viewPortletTitle">
 			<var name="portletTitle" value="New ${ddlDataDefinitionName}" />

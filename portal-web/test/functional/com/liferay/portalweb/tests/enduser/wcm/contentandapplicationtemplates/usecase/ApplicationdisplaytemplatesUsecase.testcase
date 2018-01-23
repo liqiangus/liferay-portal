@@ -67,7 +67,7 @@
 			<var name="portletOption" value="Configuration" />
 		</execute>
 
-		<execute macro="RSS#addFeed">
+		<execute macro="RSSPortlet#addFeed">
 			<var name="feedRowIndexNumber" value="0" />
 			<var name="feedTitle" value="Latimes > Technology News" />
 			<var name="feedType" value="file" />
@@ -95,7 +95,7 @@
 			<var name="siteName" value="Test Site Name" />
 		</execute>
 
-		<execute macro="RSS#waitForRSSLoad" />
+		<execute macro="RSSPortlet#waitForRSSLoad" />
 
 		<execute macro="ApplicationDisplayTemplates#selectPortletADT">
 			<var name="templateName" value="RSS Test ADT" />
@@ -106,9 +106,9 @@
 			<var name="siteName" value="Test Site Name" />
 		</execute>
 
-		<execute macro="RSS#waitForRSSLoad" />
+		<execute macro="RSSPortlet#waitForRSSLoad" />
 
-		<execute macro="RSS#viewCustomADT">
+		<execute macro="RSSPortlet#viewCustomADT">
 			<var name="feedContentTitle" value="Technology" />
 		</execute>
 	</command>
@@ -128,7 +128,7 @@
 			<var name="portletOption" value="Configuration" />
 		</execute>
 
-		<execute macro="RSS#addFeed">
+		<execute macro="RSSPortlet#addFeed">
 			<var name="feedRowIndexNumber" value="0" />
 			<var name="feedTitle" value="Latimes > Technology News" />
 			<var name="feedType" value="file" />
@@ -162,7 +162,7 @@
 			<var name="siteName" value="Test Site Name" />
 		</execute>
 
-		<execute macro="RSS#viewCorruptScript" />
+		<execute macro="RSSPortlet#viewCorruptScript" />
 	</command>
 
 	<command name="AddRSSADTWithScript" priority="3">
@@ -180,7 +180,7 @@
 			<var name="portletOption" value="Configuration" />
 		</execute>
 
-		<execute macro="RSS#addFeed">
+		<execute macro="RSSPortlet#addFeed">
 			<var name="feedRowIndexNumber" value="0" />
 			<var name="feedTitle" value="Technology" />
 			<var name="feedType" value="file" />
@@ -214,7 +214,7 @@
 			<var name="siteName" value="Test Site Name" />
 		</execute>
 
-		<execute macro="RSS#viewNavigationDisplayFeedTitle">
+		<execute macro="RSSPortlet#viewNavigationDisplayFeedTitle">
 			<var name="feedTitle" value="Technology" />
 			<var name="navigationNullADT" value="true" />
 		</execute>

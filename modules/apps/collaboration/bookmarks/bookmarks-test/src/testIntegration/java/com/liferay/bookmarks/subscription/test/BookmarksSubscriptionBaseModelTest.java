@@ -25,7 +25,6 @@ import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
-import com.liferay.portal.kernel.test.rule.Sync;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ResourceBlockPermissionTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
@@ -45,7 +44,6 @@ import org.junit.runner.RunWith;
  * @author Roberto Díaz
  */
 @RunWith(Arquillian.class)
-@Sync
 public class BookmarksSubscriptionBaseModelTest
 	extends BaseSubscriptionBaseModelTestCase {
 

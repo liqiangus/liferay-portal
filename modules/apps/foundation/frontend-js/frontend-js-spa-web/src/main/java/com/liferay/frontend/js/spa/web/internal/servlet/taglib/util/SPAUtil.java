@@ -17,6 +17,7 @@ package com.liferay.frontend.js.spa.web.internal.servlet.taglib.util;
 import com.liferay.frontend.js.spa.web.configuration.SPAConfiguration;
 import com.liferay.frontend.js.spa.web.configuration.SPAConfigurationActivator;
 import com.liferay.frontend.js.spa.web.configuration.SPAConfigurationUtil;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.service.PortletLocalService;
@@ -29,7 +30,6 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
@@ -76,7 +76,7 @@ public class SPAUtil {
 	}
 
 	public String getExcludedPaths() {
-		return _spaExcludedPaths;
+		return _SPA_EXCLUDED_PATHS;
 	}
 
 	public ResourceBundle getLanguageResourceBundle(Locale locale) {
@@ -85,7 +85,7 @@ public class SPAUtil {
 	}
 
 	public String getLoginRedirect(HttpServletRequest request) {
-		return ParamUtil.getString(request, _redirectParamName);
+		return ParamUtil.getString(request, _REDIRECT_PARAM_NAME);
 	}
 
 	public String getPortletsBlacklist(ThemeDisplay themeDisplay) {
@@ -200,10 +200,11 @@ public class SPAUtil {
 		_spaConfigurationActivator = null;
 	}
 
-	private static final String _VALID_STATUS_CODES;
+	private static final String _REDIRECT_PARAM_NAME;
 
-	private static final String _redirectParamName;
-	private static final String _spaExcludedPaths;
+	private static final String _SPA_EXCLUDED_PATHS;
+
+	private static final String _VALID_STATUS_CODES;
 
 	static {
 		Class<?> clazz = ServletResponseConstants.class;
@@ -223,7 +224,7 @@ public class SPAUtil {
 		String portletNamespace = PortalUtil.getPortletNamespace(
 			PropsUtil.get(PropsKeys.AUTH_LOGIN_PORTLET_NAME));
 
-		_redirectParamName = portletNamespace.concat("redirect");
+		_REDIRECT_PARAM_NAME = portletNamespace.concat("redirect");
 
 		jsonArray = JSONFactoryUtil.createJSONArray();
 
@@ -234,7 +235,7 @@ public class SPAUtil {
 			jsonArray.put(PortalUtil.getPathContext() + excludedPath);
 		}
 
-		_spaExcludedPaths = jsonArray.toString();
+		_SPA_EXCLUDED_PATHS = jsonArray.toString();
 	}
 
 	private PortletLocalService _portletLocalService;

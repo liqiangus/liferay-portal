@@ -1,5 +1,0 @@
-<definition component-name="test" extends="ValidateTestName">
-	<command name="testCaseContext">
-		<execute test-case="super#testName" />
-	</command>
-</definition>

@@ -819,8 +819,6 @@
 	</command>
 
 	<command name="SearchBlogsImagesViaItemSelector" priority="3">
-		<property name="test.name.skip.portal.instance" value="CPBlogs#SearchBlogsImagesViaItemSelector" />
-
 		<execute macro="Navigator#openURL" />
 
 		<execute macro="ProductMenu#gotoPortlet">
@@ -859,8 +857,6 @@
 	</command>
 
 	<command name="SearchDMImagesViaItemSelector" priority="3">
-		<property name="test.name.skip.portal.instance" value="CPBlogs#SearchDMImagesViaItemSelector" />
-
 		<execute macro="Navigator#openURL" />
 
 		<execute macro="ProductMenu#gotoPortlet">
@@ -942,8 +938,6 @@
 	</command>
 
 	<command name="ViewCoverImageDetails" priority="3">
-		<property name="test.name.skip.portal.instance" value="CPBlogs#ViewCoverImageDetails" />
-
 		<execute macro="Navigator#openURL" />
 
 		<execute macro="ProductMenu#gotoPortlet">

@@ -14,11 +14,11 @@
 
 package com.liferay.portal.template.soy.utils;
 
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONSerializer;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import java.io.InputStream;
@@ -43,7 +43,7 @@ public class SoyJavaScriptRenderer {
 		String modulesString = _jsonSerializer.serialize(modules);
 
 		return StringUtil.replace(
-			_javaScriptTPL, new String[] {"$CONTEXT", "$ID", "$MODULES"},
+			_JAVA_SCRIPT_TPL, new String[] {"$CONTEXT", "$ID", "$MODULES"},
 			new String[] {contextString, id, modulesString});
 	}
 
@@ -67,13 +67,13 @@ public class SoyJavaScriptRenderer {
 		return js;
 	}
 
+	private static final String _JAVA_SCRIPT_TPL;
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		SoyJavaScriptRenderer.class);
 
-	private static final String _javaScriptTPL;
-
 	static {
-		_javaScriptTPL = _getJavaScriptTPL();
+		_JAVA_SCRIPT_TPL = _getJavaScriptTPL();
 	}
 
 	private final JSONSerializer _jsonSerializer;

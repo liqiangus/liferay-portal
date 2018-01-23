@@ -33,7 +33,7 @@
 			<var name="breadcrumbName" value="${key_roleType} Roles" />
 		</execute>
 
-		<execute function="Click" locator1="Button#PLUS" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute function="AssertTextEquals" locator1="Portlet#HEADER" value1="New Role" />
 
@@ -71,9 +71,7 @@
 
 		<execute function="ScrollWebElementIntoView" locator1="RolesPermissions#SAVE_BUTTON" />
 
-		<execute function="AssertClick" locator1="RolesPermissions#SAVE_BUTTON" value1="Save" />
-
-		<execute macro="Alert#viewSuccessMessage" />
+		<execute macro="PortletEntry#save" />
 	</command>
 
 	<command name="addStagingAdminRole">
@@ -176,7 +174,7 @@
 
 		<execute function="AssertClick" locator1="Roles#ROLE_TABLE_TITLE_LINK" value1="${roleName}" />
 
-		<execute function="Click" locator1="Button#PLUS" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute function="SelectFrame" locator1="IFrame#SELECT_ASSIGNEES" />
 
@@ -208,7 +206,7 @@
 
 		<execute function="AssertClick" locator1="Roles#ROLE_TABLE_TITLE_LINK" value1="${roleName}" />
 
-		<execute function="Click" locator1="Button#PLUS" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute function="SelectFrame" locator1="IFrame#SELECT_ASSIGNEES" />
 

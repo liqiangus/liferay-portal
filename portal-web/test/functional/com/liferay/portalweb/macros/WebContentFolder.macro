@@ -45,10 +45,8 @@
 
 		<execute function="AssertTextEquals" locator1="Portlet#HEADER" value1="${folderName}" />
 
-		<execute function="Click" locator1="Button#PLUS" />
-
-		<execute function="Click" locator1="MenuItem#ANY_MENU_ITEM" value1="Subfolder">
-			<var name="key_menuItem" value="Subfolder" />
+		<execute macro="LexiconEntry#gotoAddMenuItem">
+			<var name="menuItem" value="Subfolder" />
 		</execute>
 
 		<execute macro="PortletEntry#inputName">

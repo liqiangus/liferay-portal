@@ -6,7 +6,7 @@
 	</command>
 
 	<command name="addPollCP">
-		<execute function="Click" locator1="Button#PLUS" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="PortletEntry#inputTitle">
 			<var name="title" value="${pollsQuestionTitle}" />
@@ -71,7 +71,7 @@
 	</command>
 
 	<command name="addPollCPWithExpirationDate">
-		<execute function="Click" locator1="Button#PLUS" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="PortletEntry#inputTitle">
 			<var name="title" value="${pollsQuestionTitle}" />
@@ -147,7 +147,7 @@
 
 		<execute macro="IFrame#selectDialogFrame" />
 
-		<execute function="Click" locator1="Button#PLUS" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="PortletEntry#inputTitle">
 			<var name="title" value="${pollsQuestionTitle}" />

@@ -1,6 +1,6 @@
 {
 	"dependencies": {
-		"liferay-amd-loader": "2.1.0",
+		"liferay-amd-loader": "2.3.0",
 		"svg4everybody": "^2.1.8"
 	},
 	"devDependencies": {
@@ -28,5 +28,5 @@
 		"prettier": "prettier-eslint src/**/*.es.js test/**/*.es.js",
 		"test": "gulp test"
 	},
-	"version": "1.0.68"
+	"version": "1.0.69"
 }

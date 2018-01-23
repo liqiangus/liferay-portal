@@ -50,9 +50,9 @@
 
 		<execute macro="PortalSettingsNavigator#gotoLDAP" />
 
-		<execute function="Refresh" />
-
-		<execute function="ScrollWebElementIntoView" locator1="Button#SAVE" />
+		<execute macro="PortalSettings#enableLDAPSetting">
+			<var name="enableCheckboxKey" value="ENABLED" />
+		</execute>
 
 		<for list="ENABLED,IMPORT_ENABLED,IMPORT_ON_STARTUP_ENABLED,USE_LDAP_PASSWORD_POLICY" param="enableCheckboxKey">
 			<execute macro="PortalSettingsNavigator#gotoLDAP" />
@@ -107,6 +107,16 @@
 		</execute>
 
 		<execute macro="User#firstLoginPG" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Configuration" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Server Administration" />
+		</execute>
+
+		<execute macro="ServerAdministration#executeServerResourcesActions">
+			<var name="actionsDescription" value="Reindex all search indexes." />
+		</execute>
 
 		<execute macro="ProductMenu#gotoPortlet">
 			<var name="category" value="Users" />

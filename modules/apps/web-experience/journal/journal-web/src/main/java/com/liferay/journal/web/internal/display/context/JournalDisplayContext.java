@@ -818,9 +818,7 @@ public class JournalDisplayContext {
 
 				Document[] documents = hits.getDocs();
 
-				for (int i = 0; i < documents.length; i++) {
-					Document document = documents[i];
-
+				for (Document document : documents) {
 					JournalArticle article = null;
 					JournalFolder folder = null;
 
@@ -1116,10 +1114,10 @@ public class JournalDisplayContext {
 	}
 
 	protected SearchContext buildSearchContext(
-		long companyId, long groupId, List<java.lang.Long> folderIds,
-		long classNameId, String ddmStructureKey, String ddmTemplateKey,
-		String keywords, LinkedHashMap<String, Object> params, int start,
-		int end, Sort sort, boolean showVersions) {
+		long companyId, long groupId, List<Long> folderIds, long classNameId,
+		String ddmStructureKey, String ddmTemplateKey, String keywords,
+		LinkedHashMap<String, Object> params, int start, int end, Sort sort,
+		boolean showVersions) {
 
 		String articleId = null;
 		String title = null;

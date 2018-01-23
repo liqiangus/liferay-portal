@@ -15,12 +15,12 @@
 package com.liferay.events.display.web.internal.upgrade.v1_0_0;
 
 import com.liferay.events.display.web.constants.EventsDisplayPortletKeys;
+import com.liferay.portal.kernel.upgrade.BaseUpgradePortletId;
 
 /**
  * @author Marcellus Tavares
  */
-public class UpgradeEventsDisplayPortletId
-	extends com.liferay.portal.kernel.upgrade.BaseUpgradePortletId {
+public class UpgradeEventsDisplayPortletId extends BaseUpgradePortletId {
 
 	@Override
 	protected String[][] getRenamePortletIdsArray() {

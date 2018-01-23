@@ -355,6 +355,15 @@ public abstract class BasePortletDataHandler implements PortletDataHandler {
 	}
 
 	@Override
+	public PortletDataHandlerControl[] getStagingControls() {
+		if (ArrayUtil.isNotEmpty(_stagingControls)) {
+			return _stagingControls;
+		}
+
+		return _exportControls;
+	}
+
+	@Override
 	public PortletPreferences importData(
 			PortletDataContext portletDataContext, String portletId,
 			PortletPreferences portletPreferences, String data)
@@ -827,6 +836,12 @@ public abstract class BasePortletDataHandler implements PortletDataHandler {
 		_publishToLiveByDefault = publishToLiveByDefault;
 	}
 
+	protected void setStagingControls(
+		PortletDataHandlerControl... stagingControls) {
+
+		_stagingControls = stagingControls;
+	}
+
 	/**
 	 * @deprecated As of 7.0.0
 	 */
@@ -855,5 +870,7 @@ public abstract class BasePortletDataHandler implements PortletDataHandler {
 	private String _portletId;
 	private boolean _publishToLiveByDefault;
 	private int _rank = 100;
+	private PortletDataHandlerControl[] _stagingControls =
+		new PortletDataHandlerControl[0];
 
 }

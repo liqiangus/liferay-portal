@@ -14,10 +14,11 @@
 
 package com.liferay.blogs.web.internal.portlet.action;
 
+import com.liferay.blogs.constants.BlogsPortletKeys;
 import com.liferay.blogs.kernel.exception.NoSuchEntryException;
 import com.liferay.blogs.kernel.exception.TrackbackValidationException;
 import com.liferay.blogs.kernel.model.BlogsEntry;
-import com.liferay.blogs.web.constants.BlogsPortletKeys;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
@@ -33,7 +34,6 @@ import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portlet.blogs.trackback.Trackback;
@@ -195,8 +195,10 @@ public class TrackbackMVCActionCommand extends BaseMVCActionCommand {
 		HttpServletResponse response = _portal.getHttpServletResponse(
 			actionResponse);
 
+		String s = sb.toString();
+
 		ServletResponseUtil.sendFile(
-			request, response, null, sb.toString().getBytes(StringPool.UTF8),
+			request, response, null, s.getBytes(StringPool.UTF8),
 			ContentTypes.TEXT_XML_UTF8);
 	}
 

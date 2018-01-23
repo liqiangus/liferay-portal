@@ -92,15 +92,15 @@ public class BookmarksEntryResourceBlockLocalServiceTest {
 			BookmarksEntry.class.getName(), _bookmarksEntry1.getEntryId(),
 			ActionKeys.VIEW);
 
-		Assert.assertTrue(roles.contains(_role1));
-		Assert.assertTrue(roles.contains(_role2));
+		Assert.assertTrue(roles.toString(), roles.contains(_role1));
+		Assert.assertTrue(roles.toString(), roles.contains(_role2));
 
 		roles = ResourceBlockLocalServiceUtil.getRoles(
 			BookmarksEntry.class.getName(), _bookmarksEntry2.getEntryId(),
 			ActionKeys.VIEW);
 
-		Assert.assertTrue(roles.contains(_role1));
-		Assert.assertFalse(roles.contains(_role2));
+		Assert.assertTrue(roles.toString(), roles.contains(_role1));
+		Assert.assertFalse(roles.toString(), roles.contains(_role2));
 	}
 
 	private BookmarksEntry _bookmarksEntry1;

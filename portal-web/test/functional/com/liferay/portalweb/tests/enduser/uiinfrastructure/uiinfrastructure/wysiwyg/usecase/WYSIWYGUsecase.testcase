@@ -26,8 +26,6 @@
 	</tear-down>
 
 	<command name="AddBlogsEntryWithImageViaBlogsImages" priority="4">
-		<property name="test.name.skip.portal.instance" value="WYSIWYGUsecase#AddBlogsEntryWithImageViaBlogsImages" />
-
 		<execute macro="Page#add">
 			<var name="pageName" value="${pageName}" />
 		</execute>

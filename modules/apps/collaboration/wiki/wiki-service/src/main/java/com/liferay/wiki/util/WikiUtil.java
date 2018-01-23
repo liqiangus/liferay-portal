@@ -14,6 +14,7 @@
 
 package com.liferay.wiki.util;
 
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.diff.DiffVersion;
 import com.liferay.portal.kernel.diff.DiffVersionsInfo;
@@ -23,7 +24,6 @@ import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.URLCodec;
 import com.liferay.wiki.model.WikiNode;
@@ -153,7 +153,9 @@ public class WikiUtil {
 
 		for (String visibleNodeName : visibleNodeNames) {
 			for (WikiNode node : nodes) {
-				if (node.getName().equals(visibleNodeName)) {
+				String name = node.getName();
+
+				if (name.equals(visibleNodeName)) {
 					orderedNodes.add(node);
 
 					nodes.remove(node);

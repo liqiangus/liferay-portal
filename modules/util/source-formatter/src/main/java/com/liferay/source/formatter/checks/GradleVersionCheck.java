@@ -42,10 +42,6 @@ public class GradleVersionCheck extends BaseFileCheck {
 			_checkDefaultVersion(
 				fileName, content, name, version, matcher.start());
 
-			if (isSubrepository() || isReadOnly(absolutePath)) {
-				continue;
-			}
-
 			if (absolutePath.contains("/modules/apps/")) {
 				content = _fixMicroVersion(
 					fileName, content, matcher.group(1), name, version);
@@ -61,6 +57,8 @@ public class GradleVersionCheck extends BaseFileCheck {
 		if (version.equals("default") &&
 			!name.equals("com.liferay.portal.impl") &&
 			!name.equals("com.liferay.portal.kernel") &&
+			!name.equals("com.liferay.portal.test") &&
+			!name.equals("com.liferay.portal.test.integration") &&
 			!name.equals("com.liferay.util.bridges") &&
 			!name.equals("com.liferay.util.taglib")) {
 

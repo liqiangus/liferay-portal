@@ -572,7 +572,7 @@
 		<execute macro="ProductMenu#gotoPortlet">
 			<var name="category" value="Configuración" />
 			<var name="panel" value="Control Panel" />
-			<var name="portlet" value="Instance Settings" />
+			<var name="portlet" value="Configuración de instancia" />
 		</execute>
 
 		<execute macro="PortalSettings#viewCurrentDefaultPortalLanguageCP">
@@ -873,7 +873,7 @@
 		<execute macro="User#loginPG" />
 	</command>
 
-	<command ignore="true" name="ViewEditURLLocale" priority="4">
+	<command name="ViewEditURLLocale" priority="4">
 		<property name="test.name.skip.portal.instance" value="SitelocalizationUsecase#ViewEditURLLocale" />
 
 		<var method="TestPropsUtil#get('portal.url')" name="portalURL" />
@@ -932,7 +932,7 @@
 		<execute function="AssertLocation" value1="${portalURL}/en/web/site-name/language-page" />
 
 		<execute macro="Navigator#openSpecificURL">
-			<var name="url" value="${portalURL}/fr" />
+			<var name="url" value="${portalURL}/fr/web/guest/home" />
 		</execute>
 
 		<execute macro="Alert#closePortalLocalizationWarning" />
@@ -940,7 +940,7 @@
 		<execute function="AssertLocation" value1="${portalURL}/en/web/guest/home" />
 
 		<execute macro="User#loginPG">
-			<var name="specificURL" value="${portalURL}/fr" />
+			<var name="specificURL" value="${portalURL}/fr/web/guest/home" />
 		</execute>
 
 		<execute function="AssertLocation" value1="${portalURL}/web/guest/home" />
@@ -967,7 +967,7 @@
 		<execute macro="Site#viewVirtualHostsURLPG">
 			<var name="pageName" value="Language Page" />
 			<var name="siteName" value="Site Name" />
-			<var name="sitePageURL" value="http://www.able.com:8080/en/web/site-name" />
+			<var name="sitePageURL" value="http://www.able.com:8080/en/web/site-name/" />
 		</execute>
 	</command>
 

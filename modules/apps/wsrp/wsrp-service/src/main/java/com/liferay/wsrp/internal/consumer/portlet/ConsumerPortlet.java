@@ -17,9 +17,11 @@ package com.liferay.wsrp.internal.consumer.portlet;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Address;
+import com.liferay.portal.kernel.model.Country;
 import com.liferay.portal.kernel.model.EmailAddress;
 import com.liferay.portal.kernel.model.ListType;
 import com.liferay.portal.kernel.model.Phone;
+import com.liferay.portal.kernel.model.Region;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.Website;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
@@ -499,7 +501,7 @@ public class ConsumerPortlet extends MVCPortlet {
 			int x = contentType.lastIndexOf("charset=");
 
 			if (x >= 0) {
-				return contentType.substring(x + 8).trim();
+				return StringUtil.trim(contentType.substring(x + 8));
 			}
 		}
 
@@ -734,10 +736,17 @@ public class ConsumerPortlet extends MVCPortlet {
 			Postal postal = new Postal();
 
 			postal.setCity(address.getCity());
-			postal.setCountry(address.getCountry().getName());
+
+			Country country = address.getCountry();
+
+			postal.setCountry(country.getName());
+
 			postal.setName(address.getUserName());
 			postal.setPostalcode(address.getZip());
-			postal.setStateprov(address.getRegion().getName());
+
+			Region region = address.getRegion();
+
+			postal.setStateprov(region.getName());
 
 			String street =
 				address.getStreet1() + address.getStreet2() +
@@ -885,7 +894,7 @@ public class ConsumerPortlet extends MVCPortlet {
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		StringBundler sb = new StringBundler();
+		StringBundler sb = new StringBundler(7);
 
 		sb.append(baseKey);
 		sb.append(StringPool.UNDERLINE);
@@ -983,8 +992,7 @@ public class ConsumerPortlet extends MVCPortlet {
 		String wsrpConsumerPortletUuid = portletName;
 
 		if (portletName.startsWith("WSRP_")) {
-			wsrpConsumerPortletUuid = portletName.substring(
-				5, portletName.length());
+			wsrpConsumerPortletUuid = portletName.substring(5);
 		}
 
 		wsrpConsumerPortletUuid = PortalUUIDUtil.fromJsSafeUuid(

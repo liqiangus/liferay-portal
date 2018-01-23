@@ -50,12 +50,13 @@
 			<var name="portlet" value="Users and Organizations" />
 		</execute>
 
-		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
-
 		<execute macro="LAR#importPortlet">
 			<var name="larFileName" value="organizations-7.0.lar" />
 			<var name="portletName" value="Users and Organizations" />
+			<var name="uploadFrom" value="dependencies" />
 		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
 
 		<execute macro="Organization#viewCP">
 			<var name="orgName" value="Space Program Academy of Continuing Education" />
@@ -87,6 +88,7 @@
 		<execute macro="LAR#importPortlet">
 			<var name="larFileName" value="class-site-template-7.0.lar" />
 			<var name="portletName" value="Site Templates" />
+			<var name="uploadFrom" value="dependencies" />
 		</execute>
 
 		<execute macro="SiteTemplates#viewCP">

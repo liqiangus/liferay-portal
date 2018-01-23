@@ -329,6 +329,8 @@
 	</command>
 
 	<command name="AddMBThread" priority="5">
+		<description message="This is a use case for LPS-62869." />
+
 		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Message Boards Page" />
 		</execute>
@@ -337,6 +339,8 @@
 			<var name="threadBody" value="MB Thread Message Body" />
 			<var name="threadSubject" value="MB Thread Message Subject" />
 		</execute>
+
+		<execute function="AssertConsoleTextNotPresent" value1="ClassNotFoundException" />
 
 		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Message Boards Page" />

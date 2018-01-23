@@ -108,6 +108,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>ASSET_ABSTRACT_VERTICAL_ELLIPSIS</td>
+	<td>//div[contains(@class,'portlet') and contains(@class,'container')]//div[contains(@class,'asset-abstract ')]/h4[contains(@class,'asset-title') and contains(.,'${key_assetTitle}')]/..//span/*[name()='svg'][contains(@class,'icon-ellipsis')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>ASSET_ABSTRACT_VIEW</td>
 	<td>//h4[@class='asset-title']/a[contains(.,'${key_assetTitle}')]</td>
 	<td></td>

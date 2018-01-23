@@ -153,7 +153,7 @@ public class PortletConstants {
 	 * @param      portletId the portlet ID
 	 * @return     the instance ID of the portlet
 	 * @deprecated As of 7.0.0, replaced by {@link
-	 *             PortletIdCodec#decodeInstanceId(java.lang.String)}
+	 *             PortletIdCodec#decodeInstanceId(String)}
 	 */
 	@Deprecated
 	public static String getInstanceId(String portletId) {
@@ -166,7 +166,7 @@ public class PortletConstants {
 	 * @param      portletId the portlet ID
 	 * @return     the root portlet ID of the portlet
 	 * @deprecated As of 7.0.0, replaced by {@link
-	 *             PortletIdCodec#decodePortletName(java.lang.String)}
+	 *             PortletIdCodec#decodePortletName(String)}
 	 */
 	@Deprecated
 	public static String getRootPortletId(String portletId) {
@@ -180,7 +180,7 @@ public class PortletConstants {
 	 * @param      portletId the portlet ID
 	 * @return     the user ID of the portlet
 	 * @deprecated As of 7.0.0, replaced by {@link
-	 *             PortletIdCodec#decodeUserId(java.lang.String)}
+	 *             PortletIdCodec#decodeUserId(String)}
 	 */
 	@Deprecated
 	public static long getUserId(String portletId) {
@@ -206,7 +206,7 @@ public class PortletConstants {
 	 * @return     <code>true</code> if the portlet ID contains an instance ID;
 	 *             <code>false</code> otherwise
 	 * @deprecated As of 7.0.0, replaced by {@link
-	 *             PortletIdCodec#hasInstanceId(java.lang.String)}
+	 *             PortletIdCodec#hasInstanceId(String)}
 	 */
 	@Deprecated
 	public static boolean hasInstanceId(String portletId) {
@@ -220,7 +220,7 @@ public class PortletConstants {
 	 * @return     <code>true</code> if the portlet ID contains a user ID;
 	 *             <code>false</code> otherwise
 	 * @deprecated As of 7.0.0, replaced by {@link
-	 *             PortletIdCodec#hasUserId(java.lang.String)}
+	 *             PortletIdCodec#hasUserId(String)}
 	 */
 	@Deprecated
 	public static boolean hasUserId(String portletId) {

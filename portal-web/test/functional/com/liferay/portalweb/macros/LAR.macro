@@ -394,7 +394,7 @@
 	</command>
 
 	<command name="_selectImportFileSite">
-		<execute function="Click" locator1="Button#PLUS" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute function="Pause" locator1="5000" />
 
@@ -453,7 +453,7 @@
 			<var name="key_menuItem" value="Export Templates" />
 		</execute>
 
-		<execute function="Click" locator1="Button#PLUS" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="PortletEntry#inputName">
 			<var name="name" value="${exportTemplateName}" />
@@ -486,7 +486,7 @@
 	<command name="configureExportSiteCP">
 		<execute macro="LAR#_gotoExportSite" />
 
-		<execute function="Click" locator1="Button#PLUS" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="LAR#_configureExportSiteOptions">
 			<var name="checkContentNameList" value="${checkContentNameList}" />
@@ -733,7 +733,7 @@
 
 	<command name="searchTemplate">
 		<execute function="Type" locator1="Search#SEARCH_FIELD" value1="${exportTemplateName}" />
-		<execute function="Click" locator1="Search#SEARCH_BUTTON" />
+		<execute function="Click" locator1="NavBar#SEARCH_BUTTON" />
 
 		<var name="key_exportTemplateName" value="${exportTemplateName}" />
 

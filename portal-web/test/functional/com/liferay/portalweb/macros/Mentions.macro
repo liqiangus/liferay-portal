@@ -63,10 +63,8 @@
 				</execute>
 			</then>
 			<else>
-				<execute function="Click" locator1="Button#PLUS" />
-
-				<execute function="AssertClick" locator1="MenuItem#ANY_MENU_ITEM" value1="Thread">
-					<var name="key_menuItem" value="Thread" />
+				<execute macro="LexiconEntry#gotoAddMenuItem">
+					<var name="menuItem" value="Thread" />
 				</execute>
 			</else>
 		</if>

@@ -28,6 +28,7 @@ import com.liferay.document.library.kernel.model.DLSyncConstants;
 import com.liferay.document.library.kernel.service.DLAppServiceUtil;
 import com.liferay.document.library.kernel.service.DLTrashServiceUtil;
 import com.liferay.document.library.workflow.WorkflowHandlerInvocationCounter;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.comment.CommentManagerUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -55,15 +56,12 @@ import com.liferay.portal.kernel.test.AssertUtils;
 import com.liferay.portal.kernel.test.context.ContextUserReplace;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
-import com.liferay.portal.kernel.test.rule.Sync;
-import com.liferay.portal.kernel.test.rule.SynchronousDestinationTestRule;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.security.permission.DoAsUserThread;
@@ -105,15 +103,12 @@ import org.junit.runner.RunWith;
 public class DLAppServiceTest extends BaseDLAppTestCase {
 
 	@RunWith(Arquillian.class)
-	@Sync
 	public static class WhenAddingAFileEntry extends BaseDLAppTestCase {
 
 		@ClassRule
 		@Rule
 		public static final AggregateTestRule aggregateTestRule =
-			new AggregateTestRule(
-				new LiferayIntegrationTestRule(),
-				SynchronousDestinationTestRule.INSTANCE);
+			new LiferayIntegrationTestRule();
 
 		@Test
 		public void assetTagsShouldBeOrdered() throws Exception {
@@ -192,7 +187,6 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 			addFileEntry(group.getGroupId(), parentFolder.getFolderId());
 		}
 
-		@Ignore
 		@Test(expected = FileSizeException.class)
 		public void shouldFailIfSizeLimitExceeded() throws Exception {
 			try (PrefsPropsTemporarySwapper prefsPropsReplacement =
@@ -241,7 +235,6 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 				group.getGroupId(), parentFolder.getFolderId(), sourceFileName);
 		}
 
-		@Ignore
 		@Test(expected = FileExtensionException.class)
 		public void shouldFailIfSourceFileNameExtensionNotSupported()
 			throws Exception {
@@ -505,15 +498,12 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 	}
 
 	@RunWith(Arquillian.class)
-	@Sync
 	public static class WhenAddingAFolder extends BaseDLAppTestCase {
 
 		@ClassRule
 		@Rule
 		public static final AggregateTestRule aggregateTestRule =
-			new AggregateTestRule(
-				new LiferayIntegrationTestRule(),
-				SynchronousDestinationTestRule.INSTANCE);
+			new LiferayIntegrationTestRule();
 
 		@Test
 		public void shouldAddAssetEntry() throws PortalException {
@@ -550,15 +540,12 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 	}
 
 	@RunWith(Arquillian.class)
-	@Sync
 	public static class WhenCheckingInAFileEntry extends BaseDLAppTestCase {
 
 		@ClassRule
 		@Rule
 		public static final AggregateTestRule aggregateTestRule =
-			new AggregateTestRule(
-				new LiferayIntegrationTestRule(),
-				SynchronousDestinationTestRule.INSTANCE);
+			new LiferayIntegrationTestRule();
 
 		@Ignore
 		@Test
@@ -632,15 +619,12 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 	}
 
 	@RunWith(Arquillian.class)
-	@Sync
 	public static class WhenCheckingOutAFileEntry extends BaseDLAppTestCase {
 
 		@ClassRule
 		@Rule
 		public static final AggregateTestRule aggregateTestRule =
-			new AggregateTestRule(
-				new LiferayIntegrationTestRule(),
-				SynchronousDestinationTestRule.INSTANCE);
+			new LiferayIntegrationTestRule();
 
 		@Test
 		public void shouldFireSyncEvent() throws Exception {
@@ -662,15 +646,12 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 	}
 
 	@RunWith(Arquillian.class)
-	@Sync
 	public static class WhenCopyingAFolder extends BaseDLAppTestCase {
 
 		@ClassRule
 		@Rule
 		public static final AggregateTestRule aggregateTestRule =
-			new AggregateTestRule(
-				new LiferayIntegrationTestRule(),
-				SynchronousDestinationTestRule.INSTANCE);
+			new LiferayIntegrationTestRule();
 
 		@Ignore
 		@Test
@@ -737,15 +718,12 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 	}
 
 	@RunWith(Arquillian.class)
-	@Sync
 	public static class WhenDeletingAFileEntry extends BaseDLAppTestCase {
 
 		@ClassRule
 		@Rule
 		public static final AggregateTestRule aggregateTestRule =
-			new AggregateTestRule(
-				new LiferayIntegrationTestRule(),
-				SynchronousDestinationTestRule.INSTANCE);
+			new LiferayIntegrationTestRule();
 
 		@Test
 		public void shouldDeleteDiscussion() throws Exception {
@@ -776,15 +754,12 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 	}
 
 	@RunWith(Arquillian.class)
-	@Sync
 	public static class WhenDeletingAFolder extends BaseDLAppTestCase {
 
 		@ClassRule
 		@Rule
 		public static final AggregateTestRule aggregateTestRule =
-			new AggregateTestRule(
-				new LiferayIntegrationTestRule(),
-				SynchronousDestinationTestRule.INSTANCE);
+			new LiferayIntegrationTestRule();
 
 		@Test
 		public void shouldDeleteImplicitlyTrashedChildFolder()
@@ -861,15 +836,12 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 	}
 
 	@RunWith(Arquillian.class)
-	@Sync
 	public static class WhenDeletingAFolderByName extends BaseDLAppTestCase {
 
 		@ClassRule
 		@Rule
 		public static final AggregateTestRule aggregateTestRule =
-			new AggregateTestRule(
-				new LiferayIntegrationTestRule(),
-				SynchronousDestinationTestRule.INSTANCE);
+			new LiferayIntegrationTestRule();
 
 		@Test
 		public void shouldDeleteImplicitlyTrashedChildFolder()
@@ -936,15 +908,12 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 	}
 
 	@RunWith(Arquillian.class)
-	@Sync
 	public static class WhenMovingAFileEntry extends BaseDLAppTestCase {
 
 		@ClassRule
 		@Rule
 		public static final AggregateTestRule aggregateTestRule =
-			new AggregateTestRule(
-				new LiferayIntegrationTestRule(),
-				SynchronousDestinationTestRule.INSTANCE);
+			new LiferayIntegrationTestRule();
 
 		@Test
 		public void shouldFireSyncEvent() throws Exception {
@@ -987,15 +956,12 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 	}
 
 	@RunWith(Arquillian.class)
-	@Sync
 	public static class WhenMovingAFileEntryToTrash extends BaseDLAppTestCase {
 
 		@ClassRule
 		@Rule
 		public static final AggregateTestRule aggregateTestRule =
-			new AggregateTestRule(
-				new LiferayIntegrationTestRule(),
-				SynchronousDestinationTestRule.INSTANCE);
+			new LiferayIntegrationTestRule();
 
 		@Before
 		@Override
@@ -1058,15 +1024,12 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 	}
 
 	@RunWith(Arquillian.class)
-	@Sync
 	public static class WhenMovingAFolder extends BaseDLAppTestCase {
 
 		@ClassRule
 		@Rule
 		public static final AggregateTestRule aggregateTestRule =
-			new AggregateTestRule(
-				new LiferayIntegrationTestRule(),
-				SynchronousDestinationTestRule.INSTANCE);
+			new LiferayIntegrationTestRule();
 
 		@Test
 		public void shouldFireSyncEvent() throws Exception {
@@ -1092,15 +1055,12 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 	}
 
 	@RunWith(Arquillian.class)
-	@Sync
 	public static class WhenRevertingAFileEntry extends BaseDLAppTestCase {
 
 		@ClassRule
 		@Rule
 		public static final AggregateTestRule aggregateTestRule =
-			new AggregateTestRule(
-				new LiferayIntegrationTestRule(),
-				SynchronousDestinationTestRule.INSTANCE);
+			new LiferayIntegrationTestRule();
 
 		@Ignore
 		@Test
@@ -1172,15 +1132,12 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 	}
 
 	@RunWith(Arquillian.class)
-	@Sync
 	public static class WhenSearchingFileEntries extends BaseDLAppTestCase {
 
 		@ClassRule
 		@Rule
 		public static final AggregateTestRule aggregateTestRule =
-			new AggregateTestRule(
-				new LiferayIntegrationTestRule(),
-				SynchronousDestinationTestRule.INSTANCE);
+			new LiferayIntegrationTestRule();
 
 		@Test
 		public void shouldFindFileEntryByAssetTagName() throws Exception {
@@ -1245,15 +1202,12 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 	}
 
 	@RunWith(Arquillian.class)
-	@Sync
 	public static class WhenUpdatingAFileEntry extends BaseDLAppTestCase {
 
 		@ClassRule
 		@Rule
 		public static final AggregateTestRule aggregateTestRule =
-			new AggregateTestRule(
-				new LiferayIntegrationTestRule(),
-				SynchronousDestinationTestRule.INSTANCE);
+			new LiferayIntegrationTestRule();
 
 		@Test
 		public void assetEntryShouldBeAddedWhenDraft() throws Exception {
@@ -1405,7 +1359,6 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 			}
 		}
 
-		@Ignore
 		@Test(expected = FileSizeException.class)
 		public void shouldFailIfSizeLimitExceeded() throws Exception {
 			String fileName = RandomTestUtil.randomString();
@@ -1568,15 +1521,12 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 	}
 
 	@RunWith(Arquillian.class)
-	@Sync
 	public static class WhenUpdatingAFolder extends BaseDLAppTestCase {
 
 		@ClassRule
 		@Rule
 		public static final AggregateTestRule aggregateTestRule =
-			new AggregateTestRule(
-				new LiferayIntegrationTestRule(),
-				SynchronousDestinationTestRule.INSTANCE);
+			new LiferayIntegrationTestRule();
 
 		@Test
 		public void shouldFireSyncEvent() throws Exception {
@@ -1612,15 +1562,12 @@ public class DLAppServiceTest extends BaseDLAppTestCase {
 	}
 
 	@RunWith(Arquillian.class)
-	@Sync
 	public static class WhenViewingFolderContents extends BaseDLAppTestCase {
 
 		@ClassRule
 		@Rule
 		public static final AggregateTestRule aggregateTestRule =
-			new AggregateTestRule(
-				new LiferayIntegrationTestRule(),
-				SynchronousDestinationTestRule.INSTANCE);
+			new LiferayIntegrationTestRule();
 
 		@Test
 		public void shouldCountDraftsIfOwner() throws Exception {

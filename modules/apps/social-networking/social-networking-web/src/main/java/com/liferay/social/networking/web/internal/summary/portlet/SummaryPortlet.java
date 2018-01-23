@@ -44,11 +44,11 @@ import com.liferay.social.kernel.model.SocialRelationConstants;
 import com.liferay.social.kernel.service.SocialRelationLocalService;
 import com.liferay.social.kernel.service.SocialRequestLocalService;
 import com.liferay.social.networking.constants.SocialNetworkingPortletKeys;
-import com.liferay.social.networking.friends.social.FriendsRequestKeys;
-import com.liferay.social.networking.members.social.MembersRequestKeys;
 import com.liferay.social.networking.service.MeetupsEntryLocalService;
 import com.liferay.social.networking.service.MeetupsRegistrationLocalService;
 import com.liferay.social.networking.service.WallEntryLocalService;
+import com.liferay.social.networking.web.internal.friends.social.FriendsRequestKeys;
+import com.liferay.social.networking.web.internal.members.social.MembersRequestKeys;
 
 import java.util.LinkedHashMap;
 import java.util.List;

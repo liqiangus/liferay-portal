@@ -279,6 +279,47 @@
 		<execute macro="Button#clickPublish" />
 	</command>
 
+	<command name="AssertAdaptedImageInWebContent" priority="5">
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="DMDocument#addCP">
+			<var name="dmDocumentDescription" value="Adaptive Media Image Description" />
+			<var name="dmDocumentFile" value="high_resolution_photo.jpg" />
+			<var name="dmDocumentTitle" value="high_resolution_photo.jpg" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="WebContentNavigator#gotoAddCP" />
+
+		<execute macro="WebContent#addWithDocumentCP">
+			<var name="dmDocumentTitle" value="high_resolution_photo.jpg" />
+			<var name="webContentContent" value="Web Content Content" />
+			<var name="webContentTitle" value="Web Content Title" />
+		</execute>
+
+		<execute macro="WebContentNavigator#gotoEditCP">
+			<var name="webContentTitle" value="Web Content Title" />
+		</execute>
+
+		<execute macro="WebContent#viewCP">
+			<var name="webContentContent" value="Web Content Content" />
+			<var name="webContentTitle" value="Web Content Title" />
+		</execute>
+
+		<execute macro="AdaptiveMedia#viewImageVariantURL">
+			<var name="imageName" value="high_resolution_photo.jpg" />
+		</execute>
+	</command>
+
 	<command name="CannotAddNonNumericWidthOrHeight" priority="5">
 		<execute macro="ProductMenu#gotoPortlet">
 			<var name="category" value="Configuration" />
@@ -327,6 +368,7 @@
 		<execute macro="AdaptiveMedia#disableImageResolution">
 			<var name="imageName" value="Small Image Variant" />
 			<var name="imageState" value="Disabled" />
+			<var name="percentAdapted" value="0" />
 		</execute>
 
 		<execute macro="AdaptiveMedia#editImageResolution">
@@ -674,6 +716,7 @@
 		<execute macro="AdaptiveMedia#disableImageResolution">
 			<var name="imageName" value="Low Resolution" />
 			<var name="imageState" value="Disabled" />
+			<var name="percentAdapted" value="100" />
 		</execute>
 
 		<execute macro="ProductMenu#gotoPortlet">

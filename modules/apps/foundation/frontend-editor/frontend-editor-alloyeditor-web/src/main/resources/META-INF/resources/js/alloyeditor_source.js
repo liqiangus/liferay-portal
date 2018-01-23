@@ -313,6 +313,7 @@ AUI.add(
 						instance._isVisible = editorWrapper.hasClass(CSS_SHOW_SOURCE);
 
 						editorSwitch.one('.lexicon-icon').replace(instance._getEditorStateLexiconIcon());
+						editorSwitch.setAttribute('data-title', instance._isVisible ? Liferay.Language.get('editor-view') : Liferay.Language.get('code-view'));
 
 						instance._refreshTooltip();
 

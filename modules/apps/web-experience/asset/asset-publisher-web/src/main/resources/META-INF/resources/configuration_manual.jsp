@@ -150,6 +150,12 @@ String eventName = "_" + HtmlUtil.escapeJS(assetPublisherDisplayContext.getPortl
 												continue;
 											}
 
+											String portletId = curRendererFactory.getPortletId();
+
+											if (group.isStagingGroup() && !group.isStagedPortlet(portletId)) {
+												groupId = group.getLiveGroupId();
+											}
+
 											assetBrowserURL.setParameter("groupId", String.valueOf(groupId));
 											assetBrowserURL.setParameter("selectedGroupIds", String.valueOf(groupId));
 											assetBrowserURL.setParameter("typeSelection", curRendererFactory.getClassName());

@@ -102,7 +102,7 @@ public class PortletDeployer extends BaseDeployer {
 			double webXmlVersion, File srcFile, String displayName)
 		throws Exception {
 
-		StringBundler sb = new StringBundler();
+		StringBundler sb = new StringBundler(9);
 
 		if (ServerDetector.isWebSphere()) {
 			sb.append("<context-param>");

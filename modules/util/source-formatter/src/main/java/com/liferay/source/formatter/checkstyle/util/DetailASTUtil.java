@@ -15,13 +15,17 @@
 package com.liferay.source.formatter.checkstyle.util;
 
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Hugo Huijser
@@ -198,9 +202,75 @@ public class DetailASTUtil {
 	public static String getTypeName(DetailAST detailAST) {
 		DetailAST typeAST = detailAST.findFirstToken(TokenTypes.TYPE);
 
-		FullIdent typeIdent = FullIdent.createFullIdentBelow(typeAST);
+		DetailAST childAST = typeAST.getFirstChild();
 
-		return typeIdent.getText();
+		if (childAST == null) {
+			return StringPool.BLANK;
+		}
+
+		int arrayDimension = 0;
+
+		while (childAST.getType() == TokenTypes.ARRAY_DECLARATOR) {
+			arrayDimension++;
+
+			childAST = childAST.getFirstChild();
+		}
+
+		StringBundler sb = new StringBundler(1 + arrayDimension);
+
+		FullIdent typeIdent = FullIdent.createFullIdent(childAST);
+
+		sb.append(typeIdent.getText());
+
+		for (int i = 0; i < arrayDimension; i++) {
+			sb.append("[]");
+		}
+
+		return sb.toString();
+	}
+
+	public static Set<String> getVariableTypeNames(
+		DetailAST detailAST, String variableName) {
+
+		Set<String> variableTypeNames = new HashSet<>();
+
+		List<DetailAST> definitionASTList = new ArrayList<>();
+
+		if (variableName.matches("_[a-z].*")) {
+			definitionASTList = getAllChildTokens(
+				_getClassAST(detailAST), true, TokenTypes.PARAMETER_DEF,
+				TokenTypes.VARIABLE_DEF);
+		}
+		else if (variableName.matches("[a-z].*")) {
+			definitionASTList = getAllChildTokens(
+				detailAST, true, TokenTypes.PARAMETER_DEF,
+				TokenTypes.VARIABLE_DEF);
+		}
+
+		for (DetailAST definitionAST : definitionASTList) {
+			DetailAST nameAST = definitionAST.findFirstToken(TokenTypes.IDENT);
+
+			if (nameAST == null) {
+				continue;
+			}
+
+			String name = nameAST.getText();
+
+			if (name.equals(variableName)) {
+				DetailAST typeAST = definitionAST.findFirstToken(
+					TokenTypes.TYPE);
+
+				nameAST = typeAST.findFirstToken(TokenTypes.IDENT);
+
+				if (nameAST == null) {
+					return variableTypeNames;
+				}
+
+				variableTypeNames.add(nameAST.getText());
+			}
+		}
+
+		return variableTypeNames;
 	}
 
 	public static boolean hasParentWithTokenType(
@@ -299,6 +369,20 @@ public class DetailASTUtil {
 		}
 
 		return list;
+	}
+
+	private static DetailAST _getClassAST(DetailAST detailAST) {
+		DetailAST parentAST = detailAST.getParent();
+
+		while (true) {
+			if (parentAST.getParent() == null) {
+				break;
+			}
+
+			return parentAST.getParent();
+		}
+
+		return null;
 	}
 
 }

@@ -328,7 +328,9 @@ public class LayoutAdminPortlet extends MVCPortlet {
 		Layout layout = layoutLocalService.getLayout(
 			groupId, privateLayout, layoutId);
 
-		if (!layout.getType().equals(LayoutConstants.TYPE_PORTLET)) {
+		String layoutType = layout.getType();
+
+		if (!layoutType.equals(LayoutConstants.TYPE_PORTLET)) {
 			return;
 		}
 

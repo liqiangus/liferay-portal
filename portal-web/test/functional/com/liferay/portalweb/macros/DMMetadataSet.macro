@@ -4,7 +4,7 @@
 
 		<execute function="AssertTextEquals" locator1="Portlet#HEADER" value1="Metadata Sets" />
 
-		<execute function="Click" locator1="Button#PLUS" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute function="AssertTextEquals" locator1="Portlet#HEADER" value1="New Metadata Set" />
 
@@ -87,7 +87,7 @@
 	</command>
 
 	<command name="save">
-		<execute function="AssertClick" locator1="DocumentsAndMediaMetadataSets#SAVE_BUTTON" value1="Save" />
+		<execute macro="Button#clickSave" />
 	</command>
 
 	<command name="selectMetadataSetsFrame">

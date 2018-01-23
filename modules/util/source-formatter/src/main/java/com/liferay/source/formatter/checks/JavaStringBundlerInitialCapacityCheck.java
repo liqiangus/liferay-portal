@@ -39,10 +39,6 @@ public class JavaStringBundlerInitialCapacityCheck extends BaseJavaTermCheck {
 		String fileName, String absolutePath, JavaTerm javaTerm,
 		String fileContent) {
 
-		if (isSubrepository() || isReadOnly(absolutePath)) {
-			return javaTerm.getContent();
-		}
-
 		return _fixInitialCapacity(javaTerm.getContent());
 	}
 
@@ -119,15 +115,15 @@ public class JavaStringBundlerInitialCapacityCheck extends BaseJavaTermCheck {
 				continue;
 			}
 
-			int sbInitialCapacity = GetterUtil.getInteger(matcher.group(4));
+			int sbInitialCapacity = GetterUtil.getInteger(matcher.group(5));
 
 			if ((sbInitialCapacity > count) ||
 				((sbInitialCapacity != count) &&
 				 !s.contains(varName + ".setIndex"))) {
 
 				return StringUtil.replaceFirst(
-					content, String.valueOf(sbInitialCapacity),
-					String.valueOf(count), matcher.start());
+					content, matcher.group(4), "(" + String.valueOf(count),
+					matcher.start());
 			}
 		}
 
@@ -234,24 +230,12 @@ public class JavaStringBundlerInitialCapacityCheck extends BaseJavaTermCheck {
 	}
 
 	private boolean _hasAppendCallInsideLoop(String s, String varName) {
-		int x = -1;
+		Matcher matcher = _loopPattern.matcher(s);
 
-		while (true) {
-			int y = s.indexOf("\tfor (", x + 1);
-			int z = s.indexOf("\twhile (", x + 1);
+		while (matcher.find()) {
+			int x = matcher.start();
 
-			if ((y == -1) ^ (z == -1)) {
-				x = Math.max(y, z);
-			}
-			else {
-				x = Math.min(y, z);
-			}
-
-			if (x == -1) {
-				return false;
-			}
-
-			y = x;
+			int y = x;
 
 			while (true) {
 				y = s.indexOf("}", y + 1);
@@ -269,14 +253,18 @@ public class JavaStringBundlerInitialCapacityCheck extends BaseJavaTermCheck {
 				if (insideLoop.contains(varName + ".append(")) {
 					return true;
 				}
-				else {
-					return false;
-				}
+
+				break;
 			}
 		}
+
+		return false;
 	}
 
+	private final Pattern _loopPattern = Pattern.compile(
+		"\t(do \\{|(for|while) \\()");
 	private final Pattern _stringBundlerPattern = Pattern.compile(
-		"\n(\t+)(StringBundler )?(\\w+) = new StringBundler\\(([0-9]+)\\);\n");
+		"\n(\t+)(StringBundler )?(\\w+) = new StringBundler(\\(([0-9]+)?)\\)" +
+			";\n");
 
 }

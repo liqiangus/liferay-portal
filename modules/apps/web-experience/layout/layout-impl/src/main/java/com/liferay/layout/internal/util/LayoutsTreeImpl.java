@@ -339,6 +339,13 @@ public class LayoutsTreeImpl implements LayoutsTree {
 					request, groupId, privateLayout, parentLayoutId, layouts,
 					treeId)) {
 
+			ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
+			String layoutURL = _portal.getLayoutURL(layout, themeDisplay);
+
+			layout.setFriendlyURL(layoutURL);
+
 			LayoutTreeNode layoutTreeNode = new LayoutTreeNode(layout);
 
 			LayoutTreeNodes childLayoutTreeNodes = null;

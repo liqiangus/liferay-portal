@@ -14,8 +14,8 @@
 
 package com.liferay.portal.configuration.test.util;
 
-import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.osgi.util.test.OSGiServiceUtil;
+import com.liferay.osgi.util.service.OSGiServiceUtil;
+import com.liferay.petra.string.StringPool;
 
 import java.util.Dictionary;
 import java.util.concurrent.CountDownLatch;
@@ -23,11 +23,11 @@ import java.util.concurrent.CountDownLatch;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
-import org.osgi.framework.ServiceEvent;
-import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceReference;
+import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.cm.Configuration;
 import org.osgi.service.cm.ConfigurationAdmin;
+import org.osgi.service.cm.ConfigurationListener;
 import org.osgi.service.component.runtime.ServiceComponentRuntime;
 import org.osgi.service.component.runtime.dto.ComponentDescriptionDTO;
 
@@ -41,7 +41,7 @@ public class ConfigurationTemporarySwapper implements AutoCloseable {
 			Dictionary<String, Object> properties)
 		throws Exception {
 
-		_service = OSGiServiceUtil.callService(
+		OSGiServiceUtil.callService(
 			_bundleContext, serviceClass,
 			service -> _validateService(serviceClass, service, pid));
 
@@ -52,45 +52,31 @@ public class ConfigurationTemporarySwapper implements AutoCloseable {
 
 		_oldProperties = _configuration.getProperties();
 
-		_updateProperties(_service, _configuration, properties);
+		_updateProperties(_configuration, properties);
 	}
 
 	@Override
 	public void close() throws Exception {
-		_updateProperties(_service, _configuration, _oldProperties);
+		_updateProperties(_configuration, _oldProperties);
 	}
 
 	private static void _updateProperties(
-			Object service, Configuration configuration,
-			Dictionary<String, Object> dictionary)
+			Configuration configuration, Dictionary<String, Object> dictionary)
 		throws Exception {
 
 		CountDownLatch countDownLatch = new CountDownLatch(1);
 
-		ServiceListener serviceListener = new ServiceListener() {
+		String markerPID = ConfigurationTemporarySwapper.class.getName();
 
-			@Override
-			public void serviceChanged(ServiceEvent serviceEvent) {
-				if (serviceEvent.getType() == ServiceEvent.REGISTERED) {
-					return;
-				}
-
-				ServiceReference<?> serviceReference =
-					serviceEvent.getServiceReference();
-
-				Object changedService = _bundleContext.getService(
-					serviceReference);
-
-				if (changedService == service) {
-					countDownLatch.countDown();
-				}
-
-				_bundleContext.ungetService(serviceReference);
+		ConfigurationListener configurationListener = configurationEvent -> {
+			if (markerPID.equals(configurationEvent.getPid())) {
+				countDownLatch.countDown();
 			}
-
 		};
 
-		_bundleContext.addServiceListener(serviceListener);
+		ServiceRegistration<ConfigurationListener> serviceRegistration =
+			_bundleContext.registerService(
+				ConfigurationListener.class, configurationListener, null);
 
 		try {
 			if (dictionary == null) {
@@ -100,10 +86,17 @@ public class ConfigurationTemporarySwapper implements AutoCloseable {
 				configuration.update(dictionary);
 			}
 
+			Configuration markerConfiguration = OSGiServiceUtil.callService(
+				_bundleContext, ConfigurationAdmin.class,
+				configurationAdmin -> configurationAdmin.getConfiguration(
+					markerPID, StringPool.QUESTION));
+
+			markerConfiguration.delete();
+
 			countDownLatch.await();
 		}
 		finally {
-			_bundleContext.removeServiceListener(serviceListener);
+			serviceRegistration.unregister();
 		}
 	}
 
@@ -159,6 +152,5 @@ public class ConfigurationTemporarySwapper implements AutoCloseable {
 
 	private final Configuration _configuration;
 	private final Dictionary<String, Object> _oldProperties;
-	private final Object _service;
 
 }

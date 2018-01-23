@@ -51,11 +51,7 @@
 	<command name="saveDataProvider">
 		<execute function="SelectFrame" value1="relative=top" />
 
-		<execute macro="Button#clickSave" />
-
-		<execute macro="IFrame#selectDialogFrame" />
-
-		<execute macro="Alert#viewSuccessMessage" />
+		<execute macro="PortletEntry#save" />
 	</command>
 
 	<command name="searchFormEntry">

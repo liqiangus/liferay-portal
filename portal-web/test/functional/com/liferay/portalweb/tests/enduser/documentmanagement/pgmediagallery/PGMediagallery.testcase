@@ -76,8 +76,6 @@
 	</command>
 
 	<command name="AddFolderDocument" priority="4">
-		<property name="test.name.skip.portal.instance" value="PGMediagallery#AddFolderDocument" />
-
 		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Media Gallery Page" />
 		</execute>

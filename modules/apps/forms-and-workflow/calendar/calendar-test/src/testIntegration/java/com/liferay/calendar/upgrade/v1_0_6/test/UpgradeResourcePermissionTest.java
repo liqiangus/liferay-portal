@@ -114,7 +114,8 @@ public class UpgradeResourcePermissionTest {
 		List<String> permissions = ResourceBlockLocalServiceUtil.getPermissions(
 			resourceBlock, _guestRole.getRoleId());
 
-		Assert.assertFalse(permissions.contains(actionKey));
+		Assert.assertFalse(
+			permissions.toString(), permissions.contains(actionKey));
 	}
 
 	protected void assertHasGuestPermission(
@@ -131,7 +132,8 @@ public class UpgradeResourcePermissionTest {
 		List<String> permissions = ResourceBlockLocalServiceUtil.getPermissions(
 			resourceBlock, _guestRole.getRoleId());
 
-		Assert.assertTrue(permissions.contains(actionKey));
+		Assert.assertTrue(
+			permissions.toString(), permissions.contains(actionKey));
 	}
 
 	protected long getBitwiseValue(String actionKey) throws Exception {

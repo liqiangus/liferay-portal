@@ -805,9 +805,13 @@ public class SubscriptionSender implements Serializable {
 			String localizedSubject = localizedSubjectMap.get(locale);
 
 			if (Validator.isNull(localizedSubject)) {
-				Locale defaultLocale = LocaleUtil.getDefault();
+				processedSubject = localizedSubjectMap.get(
+					LocaleUtil.getSiteDefault());
 
-				processedSubject = localizedSubjectMap.get(defaultLocale);
+				if (Validator.isNull(processedSubject)) {
+					processedSubject = localizedSubjectMap.get(
+						LocaleUtil.getDefault());
+				}
 			}
 			else {
 				processedSubject = localizedSubject;
@@ -823,9 +827,13 @@ public class SubscriptionSender implements Serializable {
 			String localizedBody = localizedBodyMap.get(locale);
 
 			if (Validator.isNull(localizedBody)) {
-				Locale defaultLocale = LocaleUtil.getDefault();
+				processedBody = localizedBodyMap.get(
+					LocaleUtil.getSiteDefault());
 
-				processedBody = localizedBodyMap.get(defaultLocale);
+				if (Validator.isNull(processedBody)) {
+					processedBody = localizedBodyMap.get(
+						LocaleUtil.getDefault());
+				}
 			}
 			else {
 				processedBody = localizedBody;

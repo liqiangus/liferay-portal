@@ -40,6 +40,7 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.util.test.LayoutTestUtil;
+import com.liferay.portlet.util.test.PortletKeys;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -161,8 +162,7 @@ public class FindActionTest {
 
 		preferenceMap.put("assetLinkBehavior", new String[] {"viewInPortlet"});
 
-		_testPortletId = PortletIdCodec.encode(
-			com.liferay.portlet.util.test.PortletKeys.TEST);
+		_testPortletId = PortletIdCodec.encode(PortletKeys.TEST);
 
 		LayoutTestUtil.addPortletToLayout(
 			TestPropsValues.getUserId(), _assetLayout, _testPortletId,

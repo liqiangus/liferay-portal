@@ -1001,6 +1001,45 @@ public class StagingImpl implements Staging {
 	}
 
 	@Override
+	public Group getPermissionStagingGroup(Group group) {
+		if (group == null) {
+			return null;
+		}
+
+		Group stagingGroup = group;
+
+		if (!group.isStagedRemotely() && group.hasStagingGroup()) {
+			try {
+				PermissionChecker permissionChecker =
+					PermissionThreadLocal.getPermissionChecker();
+
+				long scopeGroupId = stagingGroup.getGroupId();
+
+				boolean hasManageStagingPermission =
+					GroupPermissionUtil.contains(
+						permissionChecker, scopeGroupId,
+						ActionKeys.MANAGE_STAGING);
+				boolean hasPublishStagingPermission =
+					GroupPermissionUtil.contains(
+						permissionChecker, scopeGroupId,
+						ActionKeys.PUBLISH_STAGING);
+				boolean hasViewStagingPermission = GroupPermissionUtil.contains(
+					permissionChecker, scopeGroupId, ActionKeys.VIEW_STAGING);
+
+				if (hasManageStagingPermission || hasPublishStagingPermission ||
+					hasViewStagingPermission) {
+
+					stagingGroup = group.getStagingGroup();
+				}
+			}
+			catch (Exception e) {
+			}
+		}
+
+		return stagingGroup;
+	}
+
+	@Override
 	public long getRecentLayoutRevisionId(
 			HttpServletRequest request, long layoutSetBranchId, long plid)
 		throws PortalException {
@@ -1182,11 +1221,10 @@ public class StagingImpl implements Staging {
 
 		JSONArray warningMessagesJSONArray = JSONFactoryUtil.createJSONArray();
 
-		for (String missingReferenceReferrerClassName :
-				missingReferences.keySet()) {
+		for (Map.Entry<String, MissingReference> entry :
+				missingReferences.entrySet()) {
 
-			MissingReference missingReference = missingReferences.get(
-				missingReferenceReferrerClassName);
+			MissingReference missingReference = entry.getValue();
 
 			Map<String, String> referrers = missingReference.getReferrers();
 
@@ -1208,8 +1246,7 @@ public class StagingImpl implements Staging {
 			errorMessageJSONObject.put("size", referrers.size());
 			errorMessageJSONObject.put(
 				"type",
-				ResourceActionsUtil.getModelResource(
-					locale, missingReferenceReferrerClassName));
+				ResourceActionsUtil.getModelResource(locale, entry.getKey()));
 
 			warningMessagesJSONArray.put(errorMessageJSONObject);
 		}
@@ -1419,8 +1456,8 @@ public class StagingImpl implements Staging {
 				userId, exportImportConfiguration.getGroupId(),
 				backgroundTaskName,
 				BackgroundTaskExecutorNames.
-					LAYOUT_STAGING_BACKGROUND_TASK_EXECUTOR, taskContextMap,
-				new ServiceContext());
+					LAYOUT_STAGING_BACKGROUND_TASK_EXECUTOR,
+				taskContextMap, new ServiceContext());
 
 		return backgroundTask.getBackgroundTaskId();
 	}
@@ -2686,6 +2723,8 @@ public class StagingImpl implements Staging {
 
 		Layout sourceLayout = _layoutLocalService.getLayout(plid);
 
+		Group scopeGroup = sourceLayout.getScopeGroup();
+
 		Group stagingGroup = null;
 		Group liveGroup = null;
 
@@ -2699,9 +2738,9 @@ public class StagingImpl implements Staging {
 			targetLayout = sourceLayout;
 		}
 		else if (sourceLayout.hasScopeGroup() &&
-				 (sourceLayout.getScopeGroup().getGroupId() == scopeGroupId)) {
+				 (scopeGroup.getGroupId() == scopeGroupId)) {
 
-			stagingGroup = sourceLayout.getScopeGroup();
+			stagingGroup = scopeGroup;
 
 			liveGroup = stagingGroup.getLiveGroup();
 

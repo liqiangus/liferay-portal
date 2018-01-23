@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.Contact;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.ResourceConstants;
@@ -556,7 +557,9 @@ public class AnnouncementsEntryLocalServiceImpl
 			}
 
 			if (announcementsDelivery.isSms()) {
-				String smsSn = user.getContact().getSmsSn();
+				Contact contact = user.getContact();
+
+				String smsSn = contact.getSmsSn();
 
 				subscriptionSender.addRuntimeSubscribers(
 					smsSn, user.getFullName());

@@ -252,9 +252,7 @@ public class DocumentConversionUtil {
 			if (ArrayUtil.contains(conversions, extension)) {
 				List<String> conversionsList = new ArrayList<>();
 
-				for (int i = 0; i < conversions.length; i++) {
-					String conversion = conversions[i];
-
+				for (String conversion : conversions) {
 					if (!conversion.equals(extension)) {
 						conversionsList.add(conversion);
 					}

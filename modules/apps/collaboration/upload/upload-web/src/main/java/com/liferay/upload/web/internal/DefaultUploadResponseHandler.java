@@ -15,8 +15,10 @@
 package com.liferay.upload.web.internal;
 
 import com.liferay.document.library.kernel.antivirus.AntivirusScannerException;
+import com.liferay.document.library.kernel.exception.FileExtensionException;
 import com.liferay.document.library.kernel.exception.FileNameException;
 import com.liferay.document.library.kernel.exception.FileSizeException;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.editor.EditorConstants;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -28,8 +30,10 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.upload.UploadRequestSizeException;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.util.PrefsPropsUtil;
 import com.liferay.upload.UploadResponseHandler;
 
 import javax.portlet.PortletRequest;
@@ -52,6 +56,7 @@ public class DefaultUploadResponseHandler implements UploadResponseHandler {
 		jsonObject.put("success", Boolean.FALSE);
 
 		if (pe instanceof AntivirusScannerException ||
+			pe instanceof FileExtensionException ||
 			pe instanceof FileNameException ||
 			pe instanceof FileSizeException ||
 			pe instanceof UploadRequestSizeException) {
@@ -69,6 +74,12 @@ public class DefaultUploadResponseHandler implements UploadResponseHandler {
 				AntivirusScannerException ase = (AntivirusScannerException)pe;
 
 				errorMessage = themeDisplay.translate(ase.getMessageKey());
+			}
+			else if (pe instanceof FileExtensionException) {
+				errorType =
+					ServletResponseConstants.SC_FILE_EXTENSION_EXCEPTION;
+
+				errorMessage = _getAllowedFileExtensions();
 			}
 			else if (pe instanceof FileNameException) {
 				errorType = ServletResponseConstants.SC_FILE_NAME_EXCEPTION;
@@ -129,6 +140,16 @@ public class DefaultUploadResponseHandler implements UploadResponseHandler {
 		jsonObject.put("success", Boolean.TRUE);
 
 		return jsonObject;
+	}
+
+	private String _getAllowedFileExtensions() {
+		String[] allowedFileExtensions = PrefsPropsUtil.getStringArray(
+			PropsKeys.DL_FILE_EXTENSIONS, StringPool.COMMA);
+
+		String allowedFileExtensionsString = StringUtil.merge(
+			allowedFileExtensions, StringPool.COMMA_AND_SPACE);
+
+		return allowedFileExtensionsString;
 	}
 
 }

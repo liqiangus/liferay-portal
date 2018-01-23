@@ -14,8 +14,8 @@
 
 package com.liferay.frontend.taglib.servlet.taglib;
 
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.servlet.taglib.ui.MenuItem;
-import com.liferay.portal.kernel.util.StringPool;
 
 import java.util.Map;
 

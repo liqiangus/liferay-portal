@@ -340,23 +340,9 @@
 			</else>
 		</if>
 
-		<execute function="AssertClick" locator1="Button#CHANGE_LOGO" value1="Change" />
-
-		<execute function="SelectFrame" locator1="SitePages#LOGO_UPLOAD_IMAGE_IFRAME" />
-
-		<execute function="AssertClick" locator1="SitePages#LOGO_UPLOAD_IMAGE_BUTTON" value1="Select" />
-
-		<execute function="SikuliUploadCommonFile" locator1="OS#FILE_DIALOG_BOX_FILE_NAME_FIELD_PNG" value1="${logoFile}" />
-
-		<execute function="Pause" locator1="5000" />
-
-		<execute function="AssertClick" locator1="Button#DONE" value1="Done" />
-
-		<execute function="Pause" locator1="5000" />
-
-		<execute function="SelectFrameTop" />
-
-		<execute macro="PortletEntry#save" />
+		<execute macro="Page#uploadFileForLogo">
+			<var name="logoFile" value="${logoFile}" />
+		</execute>
 	</command>
 
 	<command name="copyApplicationsFromPageToPage">
@@ -755,6 +741,26 @@
 				</then>
 			</elseif>
 		</if>
+	</command>
+
+	<command name="uploadFileForLogo">
+		<execute function="AssertClick" locator1="Button#CHANGE_LOGO" value1="Change" />
+
+		<execute function="SelectFrame" locator1="SitePages#LOGO_UPLOAD_IMAGE_IFRAME" />
+
+		<execute function="AssertClick" locator1="SitePages#LOGO_UPLOAD_IMAGE_BUTTON" value1="Select" />
+
+		<execute function="SikuliUploadCommonFile" locator1="OS#FILE_DIALOG_BOX_FILE_NAME_FIELD_PNG" value1="${logoFile}" />
+
+		<execute function="Pause" locator1="5000" />
+
+		<execute macro="Button#clickDone" />
+
+		<execute function="Pause" locator1="5000" />
+
+		<execute function="SelectFrameTop" />
+
+		<execute macro="PortletEntry#save" />
 	</command>
 
 	<command name="view">

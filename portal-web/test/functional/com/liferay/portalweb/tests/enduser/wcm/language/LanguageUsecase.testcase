@@ -97,9 +97,8 @@
 			<var name="webContentContent" value="WC Contenido" />
 		</execute>
 
-		<execute macro="Portlet#gotoPortletOptions">
-			<var name="portletName" value="Visor de contenido web" />
-			<var name="portletOption" value="Editar contenido web" />
+		<execute macro="WebContentNavigator#gotoLocalizedEditPGViaWCD">
+			<var name="localizedPortletOption" value="Editar contenido web" />
 		</execute>
 
 		<execute macro="WebContent#viewTranslationPGViaWCD">
@@ -124,9 +123,8 @@
 			<var name="webContentContent" value="WC Inhalt" />
 		</execute>
 
-		<execute macro="Portlet#gotoPortletOptions">
-			<var name="portletName" value="Webcontentanzeige" />
-			<var name="portletOption" value="Webcontent bearbeiten" />
+		<execute macro="WebContentNavigator#gotoLocalizedEditPGViaWCD">
+			<var name="localizedPortletOption" value="Webcontent bearbeiten" />
 		</execute>
 
 		<execute macro="WebContent#viewTranslationPGViaWCD">
@@ -151,9 +149,8 @@
 			<var name="webContentContent" value="WC Pitoisuus" />
 		</execute>
 
-		<execute macro="Portlet#gotoPortletOptions">
-			<var name="portletName" value="Web-sisällön esitys" />
-			<var name="portletOption" value="Muokkaa web-sisältöä" />
+		<execute macro="WebContentNavigator#gotoLocalizedEditPGViaWCD">
+			<var name="localizedPortletOption" value="Muokkaa web-sisältöä" />
 		</execute>
 
 		<execute macro="WebContent#viewTranslationPGViaWCD">

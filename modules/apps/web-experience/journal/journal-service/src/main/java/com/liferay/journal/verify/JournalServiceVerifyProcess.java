@@ -326,34 +326,37 @@ public class JournalServiceVerifyProcess extends VerifyLayout {
 	}
 
 	protected void updateDocumentLibraryElements(Element element) {
-		Element dynamicContentElement = element.element("dynamic-content");
+		List<Element> dynamicContentElements = element.elements(
+			"dynamic-content");
 
-		String path = dynamicContentElement.getStringValue();
+		for (Element dynamicContentElement : dynamicContentElements) {
+			String path = dynamicContentElement.getStringValue();
 
-		String[] pathArray = StringUtil.split(path, CharPool.SLASH);
+			String[] pathArray = StringUtil.split(path, CharPool.SLASH);
 
-		if (pathArray.length != 5) {
-			return;
-		}
+			if (pathArray.length != 5) {
+				return;
+			}
 
-		long groupId = GetterUtil.getLong(pathArray[2]);
-		long folderId = GetterUtil.getLong(pathArray[3]);
-		String title = _http.decodeURL(HtmlUtil.escape(pathArray[4]));
+			long groupId = GetterUtil.getLong(pathArray[2]);
+			long folderId = GetterUtil.getLong(pathArray[3]);
+			String title = _http.decodeURL(HtmlUtil.escape(pathArray[4]));
 
-		try {
-			FileEntry fileEntry = _dlAppLocalService.getFileEntry(
-				groupId, folderId, title);
+			try {
+				FileEntry fileEntry = _dlAppLocalService.getFileEntry(
+					groupId, folderId, title);
 
-			Node node = dynamicContentElement.node(0);
+				Node node = dynamicContentElement.node(0);
 
-			node.setText(path + StringPool.SLASH + fileEntry.getUuid());
-		}
-		catch (PortalException pe) {
+				node.setText(path + StringPool.SLASH + fileEntry.getUuid());
+			}
+			catch (PortalException pe) {
 
-			// LPS-52675
+				// LPS-52675
 
-			if (_log.isDebugEnabled()) {
-				_log.debug(pe, pe);
+				if (_log.isDebugEnabled()) {
+					_log.debug(pe, pe);
+				}
 			}
 		}
 	}
@@ -723,8 +726,8 @@ public class JournalServiceVerifyProcess extends VerifyLayout {
 
 			StringBundler sb = new StringBundler(15);
 
-			sb.append("select JournalArticle.* from JournalArticle left ");
-			sb.append("join JournalArticle tempJournalArticle on ");
+			sb.append("select JournalArticle.* from JournalArticle left join ");
+			sb.append("JournalArticle tempJournalArticle on ");
 			sb.append("(JournalArticle.groupId = tempJournalArticle.groupId) ");
 			sb.append("and (JournalArticle.articleId = ");
 			sb.append("tempJournalArticle.articleId) and ");

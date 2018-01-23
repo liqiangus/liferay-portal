@@ -215,7 +215,9 @@ public class AMImageConfigurationTest extends BaseAMImageConfigurationTestCase {
 			amImageConfigurationHelper.getAMImageConfigurationEntries(
 				TestPropsValues.getCompanyId());
 
-		Assert.assertFalse(amImageConfigurationEntries.isEmpty());
+		Assert.assertFalse(
+			amImageConfigurationEntries.toString(),
+			amImageConfigurationEntries.isEmpty());
 	}
 
 	@Test

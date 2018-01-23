@@ -5420,7 +5420,7 @@
 		</execute>
 	</command>
 
-	<command ignore="true" name="ViewShowMoreLocalization" priority="3">
+	<command name="ViewShowMoreLocalization" priority="3">
 		<description message="This is a use case for LPS-54786." />
 
 		<property name="test.name.skip.portal.instance" value="Calendar#ViewShowMoreLocalization" />
@@ -5441,10 +5441,6 @@
 
 		<execute macro="MyAccount#configureDisplaySettingsLanguage">
 			<var name="languageName" value="español (España)" />
-			<var name="languagePageDisplayMessage" value="Mostrar la página en español (España)." />
-			<var name="myAccount" value="My Account" />
-			<var name="saveButton" value="Save" />
-			<var name="successMessage" value="Su petición ha terminado con éxito." />
 		</execute>
 
 		<execute macro="Navigator#gotoPage">
@@ -5469,10 +5465,8 @@
 		<execute macro="MyAccount#configureDisplaySettingsLanguageLocalized">
 			<var name="category" value="Mi cuenta" />
 			<var name="languageName" value="English (United States)" />
-			<var name="languagePageDisplayMessage" value="Display the page in English (United States)." />
 			<var name="portlet" value="Mi cuenta" />
 			<var name="saveButton" value="Guardar" />
-			<var name="successMessage" value="Your request completed successfully." />
 		</execute>
 	</command>
 

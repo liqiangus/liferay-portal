@@ -415,7 +415,9 @@ public class AssetVocabularyLocalServiceImpl
 		AssetVocabulary vocabulary =
 			assetVocabularyPersistence.findByPrimaryKey(vocabularyId);
 
-		if (!vocabulary.getName().equals(name)) {
+		String vocabularyName = vocabulary.getName();
+
+		if (!vocabularyName.equals(name)) {
 			validate(vocabulary.getGroupId(), name);
 		}
 

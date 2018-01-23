@@ -744,6 +744,11 @@
 			<var name="page" value="Staging Test Page" />
 		</execute>
 
+		<execute macro="Navigator#gotoStagedSitePage">
+			<var name="pageName" value="Staging Test Page" />
+			<var name="siteName" value="Site Name" />
+		</execute>
+
 		<execute macro="Staging#gotoPublishToLive" />
 
 		<execute macro="Staging#publishToLive" />
@@ -925,6 +930,8 @@
 	</command>
 
 	<command name="PublishWCViaRemoteStaging" priority="3">
+		<description message="This is a use case for LPS-62869." />
+
 		<property name="custom.properties" value="tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=" />
 
 		<execute macro="Staging#remoteStagingSetUp">
@@ -953,6 +960,8 @@
 		<execute macro="Staging#gotoPublishToLive" />
 
 		<execute macro="Staging#publishToLive" />
+
+		<execute function="AssertConsoleTextNotPresent" value1="ClassNotFoundException" />
 
 		<execute macro="Navigator#gotoSitePage">
 			<var name="pageName" value="Staging Test Page" />

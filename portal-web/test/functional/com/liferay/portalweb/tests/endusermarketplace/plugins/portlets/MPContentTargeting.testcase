@@ -12,6 +12,8 @@
 	</set-up>
 
 	<command name="MarketplacePortletContentTargetingSmoke" priority="4">
+		<description message="This is a use case for WCM-1381." />
+
 		<property name="extraapps.plugins.includes" value="content-targeting" />
 
 		<execute macro="ProductMenu#gotoPortlet">
@@ -19,5 +21,18 @@
 			<var name="panel" value="Site Administration" />
 			<var name="portlet" value="Audience Targeting" />
 		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Apps" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="App Manager" />
+		</execute>
+
+		<execute macro="AppManager#deactivateAppCP">
+			<var name="appName" value="Audience Targeting" />
+		</execute>
+
+		<execute function="AssertConsoleTextNotPresent" value1="java.lang.NullPointerException
+java.lang.NullPointerException" />
 	</command>
 </definition>

@@ -230,7 +230,8 @@ public class DLFileEntryTypeFinderTest {
 
 		Assert.assertEquals(
 			fileEntryTypes.toString(), 1, fileEntryTypes.size());
-		Assert.assertTrue(fileEntryTypes.contains(fileEntryType));
+		Assert.assertTrue(
+			fileEntryTypes.toString(), fileEntryTypes.contains(fileEntryType));
 	}
 
 	@Test
@@ -260,7 +261,9 @@ public class DLFileEntryTypeFinderTest {
 
 			Assert.assertEquals(
 				fileEntryTypes.toString(), 1, fileEntryTypes.size());
-			Assert.assertTrue(fileEntryTypes.contains(fileEntryType));
+			Assert.assertTrue(
+				fileEntryTypes.toString(),
+				fileEntryTypes.contains(fileEntryType));
 		}
 		finally {
 			PermissionThreadLocal.setPermissionChecker(
@@ -300,7 +303,9 @@ public class DLFileEntryTypeFinderTest {
 
 			Assert.assertEquals(
 				fileEntryTypes.toString(), 0, fileEntryTypes.size());
-			Assert.assertFalse(fileEntryTypes.contains(fileEntryType));
+			Assert.assertFalse(
+				fileEntryTypes.toString(),
+				fileEntryTypes.contains(fileEntryType));
 		}
 		finally {
 			PermissionThreadLocal.setPermissionChecker(
@@ -324,13 +329,16 @@ public class DLFileEntryTypeFinderTest {
 
 		Assert.assertEquals(
 			fileEntryTypes.toString(), 2, fileEntryTypes.size());
-		Assert.assertTrue(fileEntryTypes.contains(fileEntryType));
+		Assert.assertTrue(
+			fileEntryTypes.toString(), fileEntryTypes.contains(fileEntryType));
 
 		DLFileEntryType basicFileEntryType =
 			DLFileEntryTypeLocalServiceUtil.getFileEntryType(
 				0, "BASIC-DOCUMENT");
 
-		Assert.assertTrue(fileEntryTypes.contains(basicFileEntryType));
+		Assert.assertTrue(
+			fileEntryTypes.toString(),
+			fileEntryTypes.contains(basicFileEntryType));
 	}
 
 	@Test
@@ -350,7 +358,9 @@ public class DLFileEntryTypeFinderTest {
 			DLFileEntryTypeLocalServiceUtil.getFileEntryType(
 				0, "BASIC-DOCUMENT");
 
-		Assert.assertTrue(fileEntryTypes.contains(basicFileEntryType));
+		Assert.assertTrue(
+			fileEntryTypes.toString(),
+			fileEntryTypes.contains(basicFileEntryType));
 	}
 
 	@Test
@@ -371,7 +381,8 @@ public class DLFileEntryTypeFinderTest {
 
 		Assert.assertEquals(
 			fileEntryTypes.toString(), 1, fileEntryTypes.size());
-		Assert.assertTrue(fileEntryTypes.contains(fileEntryType));
+		Assert.assertTrue(
+			fileEntryTypes.toString(), fileEntryTypes.contains(fileEntryType));
 	}
 
 	protected DLFileEntryType addFileEntryType(ServiceContext serviceContext)

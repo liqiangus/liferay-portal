@@ -872,7 +872,7 @@ public class DLImpl implements DL {
 			boolean manualCheckInRequired, boolean openDocumentUrl)
 		throws PortalException {
 
-		StringBundler webDavURL = new StringBundler(7);
+		StringBundler webDavURLSB = new StringBundler(7);
 
 		boolean secure = false;
 
@@ -885,13 +885,13 @@ public class DLImpl implements DL {
 		String portalURL = PortalUtil.getPortalURL(
 			themeDisplay.getServerName(), themeDisplay.getServerPort(), secure);
 
-		webDavURL.append(portalURL);
+		webDavURLSB.append(portalURL);
 
-		webDavURL.append(themeDisplay.getPathContext());
-		webDavURL.append("/webdav");
+		webDavURLSB.append(themeDisplay.getPathContext());
+		webDavURLSB.append("/webdav");
 
 		if (manualCheckInRequired) {
-			webDavURL.append(MANUAL_CHECK_IN_REQUIRED_PATH);
+			webDavURLSB.append(MANUAL_CHECK_IN_REQUIRED_PATH);
 		}
 
 		Group group = null;
@@ -903,8 +903,8 @@ public class DLImpl implements DL {
 			group = themeDisplay.getScopeGroup();
 		}
 
-		webDavURL.append(group.getFriendlyURL());
-		webDavURL.append("/document_library");
+		webDavURLSB.append(group.getFriendlyURL());
+		webDavURLSB.append("/document_library");
 
 		StringBuilder sb = new StringBuilder();
 
@@ -934,9 +934,9 @@ public class DLImpl implements DL {
 			sb.append(DLWebDAVUtil.escapeURLTitle(fileEntry.getTitle()));
 		}
 
-		webDavURL.append(sb.toString());
+		webDavURLSB.append(sb.toString());
 
-		return webDavURL.toString();
+		return webDavURLSB.toString();
 	}
 
 	@Override

@@ -832,7 +832,7 @@
 	</command>
 
 	<command name="uploadDefinition">
-		<execute function="Click" locator1="Button#PLUS" />
+		<execute macro="LexiconEntry#gotoAdd" />
 
 		<execute macro="PortletEntry#inputTitle">
 			<var name="title" value="${workflowDefinitionTitle}" />
